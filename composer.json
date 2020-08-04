@@ -1,0 +1,9 @@
+{
+    "name": "francerz/http",
+    "description": "Basic HTTP client",
+    "autoload": {
+        "psr-4" : {
+            "Francerz\\Http\\" : "src"
+        }
+    }
+}
