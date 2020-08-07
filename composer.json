@@ -5,5 +5,8 @@
         "psr-4" : {
             "Francerz\\Http\\" : "src"
         }
+    },
+    "require": {
+        "psr/http-message": "^1.0"
     }
 }
