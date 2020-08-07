@@ -1,12 +1,22 @@
 {
     "name": "francerz/http",
     "description": "Basic HTTP client",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/francerz/PHP-PowerData"
+        }
+    ],
     "autoload": {
         "psr-4" : {
             "Francerz\\Http\\" : "src"
         }
     },
     "require": {
-        "psr/http-message": "^1.0"
+        "psr/http-message": "^1.0",
+        "francerz/power-data": "dev-master"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.2"
     }
 }
