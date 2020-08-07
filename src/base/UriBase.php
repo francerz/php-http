@@ -16,6 +16,11 @@ abstract class UriBase implements UriInterface
     protected string $query;
     protected string $fragment;
 
+    public function __construct()
+    {
+        
+    }
+
     public function getScheme() : string
     {
         if (!isset($this->scheme)) {
@@ -52,7 +57,7 @@ abstract class UriBase implements UriInterface
         }
 
         $userInfo = $this->user;
-        if (isset($this->password)) {
+        if (!empty($this->password)) {
             $userInfo.= ':'.$this->password;
         }
 
@@ -71,7 +76,7 @@ abstract class UriBase implements UriInterface
     {
         if (
             isset($this->port) &&
-            !in_array($this->port, Ports::forSchema($this->schema), true)
+            !in_array($this->port, Ports::forScheme($this->scheme), true)
         ) {
             return $this->port;
         }
@@ -182,8 +187,9 @@ abstract class UriBase implements UriInterface
 
             // Adding "/" at start if path is rootless.
             if (!empty($path) && strpos($path, '/') !== 0) {
-                $uri.= '/'.$path;
+                $path = '/'.$path;
             }
+            $uri.= $path;
         } elseif (!empty($path)) {
             // Collapses all starting "/" to one.
             $uri.= '/'.ltrim($path, '/');
