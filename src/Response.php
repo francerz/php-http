@@ -2,11 +2,14 @@
 namespace Francerz\Http;
 
 use Francerz\Http\Base\ResponseBase;
+use Francerz\Http\Traits\MessageTrait;
+use Francerz\Http\Traits\ResponseTrait;
 
 class Response extends ResponseBase
 {
+    use MessageTrait;
     use ResponseTrait;
-
+    
     protected function importHeaders($headers_string)
     {
         $headers = explode("\r\n", $headers_string);

@@ -3,10 +3,11 @@
 namespace Francerz\Http;
 
 use Francerz\Http\Base\ServerRequestBase;
+use Francerz\Http\Traits\MessageTrait;
 
 class ServerRequest extends ServerRequestBase
 {
-    use ResponseTrait;
+    use MessageTrait;
     
     public function __construct()
     {
