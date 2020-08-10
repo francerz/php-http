@@ -12,17 +12,7 @@ abstract class ServerRequestBase extends RequestBase implements ServerRequestInt
     protected array $cookies;
     protected array $params;
     protected array $files;
-    protected array $bodyData;
     protected array $attributes;
-
-    public function __construct()
-    {
-        parent::__construct();
-        $this->cookies = $_COOKIE;
-        $this->params = $_GET;
-        $this->files = $_FILES;
-        $this->bodyData = $_POST;
-    }
 
     public function getServerParams() : array
     {
