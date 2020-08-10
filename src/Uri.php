@@ -5,15 +5,8 @@ use Francerz\Http\Base\UriBase;
 
 class Uri extends UriBase
 {
-    public function __construct(string $url = null)
-    {
-        parent::__construct();
-        if (!empty($url)) {
-            $this->parse($url);
-        }
-    }
 
-    static public function getCurrent()
+    static public function getCurrent() : Uri
     {
         $url = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http';
         $url.= '://';
@@ -21,6 +14,14 @@ class Uri extends UriBase
         $url.= $_SERVER['REQUEST_URI'];
         $url = new static($url);
         return $url;
+    }
+    
+    public function __construct(string $url = null)
+    {
+        parent::__construct();
+        if (!empty($url)) {
+            $this->parse($url);
+        }
     }
 
     private function parse($url)
