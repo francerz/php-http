@@ -67,6 +67,42 @@ class UriTest extends TestCase
         $this->assertEquals('fragment', $uri->getFragment());
 
         $this->assertEquals($url, (string) $uri);
+
+        return $uri;
+    }
+
+    /**
+     * @depends testParsing
+     *
+     * @param Uri $uri
+     * @return void
+     */
+    public function testQueryParams(Uri $uri)
+    {
+        $this->assertEquals('string', $uri->getQueryParam('query'));
+        $this->assertNull($uri->getQueryParam('attr2'));
+
+        $uri2 = $uri->withQueryParam('attr2', 'new_value');
+
+        $this->assertEquals('string', $uri2->getQueryParam('query'));
+        $this->assertEquals('new_value', $uri2->getQueryParam('attr2'));
+
+        $this->assertNull($uri->getQueryParam('attr2'));
+        $this->assertEquals(
+            'https://user:pass@www.example.com:8080/path/to/doc?query=string&attr2=new_value#fragment',
+            (string)$uri2
+        );
+
+        $uri3 = $uri2->withoutQueryParam('query');
+
+        $this->assertNull($uri3->getQueryParam('query'));
+        $this->assertEquals(
+            'https://user:pass@www.example.com:8080/path/to/doc?attr2=new_value#fragment',
+            (string)$uri3
+        );
+
+        $uri4 = $uri3->withQueryParams(['attr1'=>1], false);
+        $this->assertEquals(['attr2'=>'new_value','attr1'=>1], $uri4->getQueryParams());
     }
 
     public function testParsingMailTo()
@@ -78,7 +114,5 @@ class UriTest extends TestCase
         $this->assertEquals('mailto', $uri->getScheme());
         $this->assertEquals('user', $uri->getUserInfo());
         $this->assertEquals('example.com', $uri->getHost());
-
-
     }
 }
