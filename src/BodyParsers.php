@@ -26,6 +26,8 @@ class BodyParsers
 
     public static function find(string $type) : ?ParserInterface
     {
+        $lim = strpos($type, ';');
+        $type = ($lim === false ? $type : substr($type, 0, $lim));
         return Arrays::valueKeyInsensitive(static::$typeIndex, $type);
     }
 }

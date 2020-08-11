@@ -8,6 +8,8 @@ use Francerz\Http\Traits\MessageTrait;
 class ServerRequest extends ServerRequestBase
 {
     use MessageTrait;
+
+    protected $parsedBody;
     
     public function __construct()
     {
@@ -41,20 +43,41 @@ class ServerRequest extends ServerRequestBase
 
     public function getParsedBody()
     {
-        $contentType = $this->getHeader('Content-Type');
-        if (count($contentType) === 0) {
-            return (string)$this->body;
+        if (isset($this->parsedBody)) {
+            return $this->parsedBody;
         }
 
-        $parser = BodyParsers::find($contentType[0]);
-        if (is_null($parser)) {
-            return (string)$this->body;
+        $contentType = $this->getContentType();
+        if (empty($contentType)) {
+            return $this->parsedBody = (string)$this->body;
         }
 
-        return $parser->decode($this->body, $contentType[0]);
+        $parser = BodyParsers::find($contentType);
+        if (empty($parser)) {
+            return $this->parsedBody = (string)$this->body;
+        }
+
+        return $this->parsedBody = $parser->decode($this->body, $contentType);
     }
     public function withParsedBody($data)
     {
-        
+        $new = clone $this;
+
+        $new->parsedBody = $data;
+
+        $contentType = $this->getContentType();
+        if (empty($contentType)) {
+            $this->body = new StringStream((string)$this->parsedBody);
+            return $new;
+        }
+
+        $parser = BodyParsers::find($contentType);
+        if (empty($parser)) {
+            $this->body = new StringStream((string)$this->parsedBody);
+            return $new;
+        }
+
+        $this->body = $parser->encode($data);
+        return $new;
     }
 }
