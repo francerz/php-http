@@ -4,7 +4,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/francerz/PHP-PowerData"
+            "url": "https://github.com/francerz/php-power-data"
         }
     ],
     "autoload": {
