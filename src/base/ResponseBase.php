@@ -7,8 +7,8 @@ use Psr\Http\Message\ResponseInterface;
 
 abstract class ResponseBase extends MessageBase implements ResponseInterface
 {
-    protected int $code;
-    protected string $reasonPhrase;
+    protected $code;
+    protected $reasonPhrase;
 
     public function getStatusCode() : int
     {

@@ -7,9 +7,9 @@ use Psr\Http\Message\UriInterface;
 
 abstract class RequestBase extends MessageBase implements RequestInterface
 {
-    protected string $requestTarget;
-    protected string $method;
-    protected UriInterface $uri;
+    protected $requestTarget;
+    protected $method;
+    protected $uri;
 
     public function __construct()
     {

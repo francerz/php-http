@@ -9,10 +9,10 @@ use Psr\Http\Message\UploadedFileInterface;
 
 abstract class ServerRequestBase extends RequestBase implements ServerRequestInterface
 {
-    protected array $cookies;
-    protected array $params;
-    protected array $files;
-    protected array $attributes;
+    protected $cookies;
+    protected $params;
+    protected $files;
+    protected $attributes;
 
     public function getServerParams() : array
     {

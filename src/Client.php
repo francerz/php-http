@@ -6,8 +6,8 @@ use Psr\Http\Message\RequestInterface;
 
 class Client
 {
-    private string $userAgent = 'francerz-http-client-php';
-    private int $timeout = 30;
+    private $userAgent = 'francerz-http-client-php';
+    private $timeout = 30;
 
     public function setUserAgent($userAgent)
     {

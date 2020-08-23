@@ -7,14 +7,14 @@ use Psr\Http\Message\UriInterface;
 
 abstract class UriBase implements UriInterface
 {
-    protected string $scheme;
-    protected string $user;
-    protected string $password;
-    protected string $host;
-    protected int $port;
-    protected string $path;
-    protected string $query;
-    protected string $fragment;
+    protected $scheme;
+    protected $user;
+    protected $password;
+    protected $host;
+    protected $port;
+    protected $path;
+    protected $query;
+    protected $fragment;
 
     public function __construct()
     {

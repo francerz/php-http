@@ -2,6 +2,7 @@
 namespace Francerz\Http;
 
 use Francerz\Http\Base\UriBase;
+use Francerz\Http\Helpers\UriHelper;
 use Psr\Http\Message\UriInterface;
 
 class Uri extends UriBase
@@ -64,46 +65,26 @@ class Uri extends UriBase
 
     public function withQueryParam(string $name, $value) : Uri
     {
-        parse_str($this->getQuery(), $queryParams);
-        $queryParams[$name] = $value;
-
-        return parent::withQuery(http_build_query($queryParams));
+        return UriHelper::withQueryParam($this, $name, $value);
     }
 
     public function withQueryParams(array $params, bool $replace = false) : Uri
     {
-        if (!$replace) {
-            parse_str($this->getQuery(), $queryParams);
-            $params = array_merge($queryParams, $params);
-        }
-        return parent::withQuery(http_build_query($params));
+        return UriHelper::withQueryParams($this, $params, $replace);
     }
 
     public function withoutQueryParam(string $name) : Uri
     {
-        parse_str($this->getQuery(), $queryParams);
-        unset($queryParams[$name]);
-
-        return parent::withQuery(http_build_query($queryParams));
+        return UriHelper::withoutQueryParam($this, $name);
     }
 
     public function getQueryParam(string $name)
     {
-        static $queryParams;
-        parse_str($this->getQuery(), $queryParams);
-
-        if (array_key_exists($name, $queryParams)) {
-            return $queryParams[$name];
-        }
-
-        return null;
+        return UriHelper::getQueryParam($this, $name);
     }
 
     public function getQueryParams()
     {
-        static $queryParams;
-        parse_str($this->getQuery(), $queryParams);
-
-        return $queryParams;
+        return UriHelper::getQueryParams($this);
     }
 }

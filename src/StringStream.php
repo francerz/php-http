@@ -6,8 +6,8 @@ use Psr\Http\Message\StreamInterface;
 
 class StringStream implements StreamInterface
 {
-    private string $string;
-    private int $pointer;
+    private $string;
+    private $pointer;
 
     public function __construct($string = null)
     {

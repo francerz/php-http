@@ -11,9 +11,9 @@ abstract class MessageBase implements MessageInterface
     const PROTOCOL_VERSION_1_0 = "1.0";
     const PROTOCOL_VERSION_1_1 = "1.1";
 
-    protected string $protocolVersion = self::PROTOCOL_VERSION_1_1;
-    protected array $headers = array();
-    protected StreamInterface $body;
+    protected $protocolVersion = self::PROTOCOL_VERSION_1_1;
+    protected $headers = array();
+    protected $body;
 
     public function __construct()
     {

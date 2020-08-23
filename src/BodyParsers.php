@@ -6,8 +6,8 @@ use Francerz\PowerData\Arrays;
 
 class BodyParsers
 {
-    private static array $parsers = array();
-    private static array $typeIndex = array();
+    private $parsers = array();
+    private $typeIndex = array();
 
     public static function register(ParserInterface $parser)
     {
