@@ -2,6 +2,8 @@
 
 namespace Francerz\Http\Traits;
 
+use Psr\Http\Message\MessageInterface;
+
 trait MessageTrait
 {
     public function getContentType()
@@ -14,7 +16,7 @@ trait MessageTrait
         return $ct ?? 'application/octet';
     }
 
-    public function withAuthorizationHeader(string $type, string $content)
+    public function withAuthorizationHeader(string $type, string $content) : MessageInterface
     {
         if (strtolower($type) === 'basic') {
             $content = base64_encode($content);
