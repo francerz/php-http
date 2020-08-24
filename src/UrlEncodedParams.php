@@ -8,7 +8,7 @@ class UrlEncodedParams implements ArrayAccess
 {
     private $params;
 
-    public function __construct($params)
+    public function __construct($params = null)
     {
         if (is_array($params)) {
             $this->params = $params;
