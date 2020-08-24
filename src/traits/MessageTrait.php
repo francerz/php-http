@@ -2,6 +2,7 @@
 
 namespace Francerz\Http\Traits;
 
+use Francerz\Http\Helpers\MessageHelper;
 use Psr\Http\Message\MessageInterface;
 
 trait MessageTrait
@@ -26,19 +27,6 @@ trait MessageTrait
 
     public function getAuthorizationHeader(string &$type, string &$content)
     {
-        $header = $this->getHeader('Authorization');
-
-        $wsp = strpos($header, ' ');
-        $type = ucfirst(strtolower(substr($header, 0, $wsp)));
-        $content = base64_decode(substr($header, $wsp + 1));
-
-        $result = [];
-        if ($type === 'Basic') {
-            $a = explode(':', $content);
-            $result['user'] = $a[0];
-            $result['pass'] = $a[1];
-        }
-
-        return $result;
+        return MessageHelper::getAuthorizationHeader($this, $type, $content);
     }
 }
