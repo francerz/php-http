@@ -3,6 +3,7 @@
 namespace Francerz\Http;
 
 use Francerz\Http\Base\ServerRequestBase;
+use Francerz\Http\Helpers\BodyHelper;
 use Francerz\Http\Traits\MessageTrait;
 
 class ServerRequest extends ServerRequestBase
@@ -47,17 +48,7 @@ class ServerRequest extends ServerRequestBase
             return $this->parsedBody;
         }
 
-        $contentType = $this->getContentType();
-        if (empty($contentType)) {
-            return $this->parsedBody = (string)$this->body;
-        }
-
-        $parser = BodyParsers::find($contentType);
-        if (empty($parser)) {
-            return $this->parsedBody = (string)$this->body;
-        }
-
-        return $this->parsedBody = $parser->decode($this->body, $contentType);
+        return $this->parsedBody = BodyHelper::getParsedBody($this);
     }
     public function withParsedBody($data)
     {

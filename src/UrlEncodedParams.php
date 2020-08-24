@@ -8,9 +8,15 @@ class UrlEncodedParams implements ArrayAccess
 {
     private $params;
 
-    public function __construct()
+    public function __construct($params)
     {
-        $this->params = array();
+        if (is_array($params)) {
+            $this->params = $params;
+        } elseif (is_string($params)) {
+            parse_str($params, $this->params);
+        } else {
+            $this->params = array();
+        }
     }
 
     #region ArrayAccess methods
