@@ -1,5 +1,5 @@
 {
-    "name": "francerz/http",
+    "name": "francerz/php-http",
     "description": "Basic HTTP client",
     "repositories": [
         {
@@ -14,7 +14,7 @@
     },
     "require": {
         "psr/http-message": "^1.0",
-        "francerz/power-data": "dev-master"
+        "francerz/php-power-data": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.2"
