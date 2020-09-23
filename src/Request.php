@@ -10,6 +10,8 @@ class Request extends RequestBase
     
     public function __construct(Uri $uri)
     {
+        parent::__construct();
         $this->uri = $uri;
+        $this->body = new StringStream();
     }
 }

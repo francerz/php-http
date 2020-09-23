@@ -9,6 +9,12 @@ class Response extends ResponseBase
 {
     use MessageTrait;
     use ResponseTrait;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->body = new StringStream();
+    }
     
     protected function importHeaders($headers_string)
     {
