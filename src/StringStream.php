@@ -11,6 +11,8 @@ class StringStream implements StreamInterface
 
     public function __construct($string = null)
     {
+        if (!isset($string)) $string = '';
+        
         $this->pointer = 0;
         $this->string = $string;
     }
@@ -27,7 +29,7 @@ class StringStream implements StreamInterface
     public function detach()
     {
         $string = $this->string;
-        unset($this->string);
+        $this->string = '';
         return $string;
     }
 
