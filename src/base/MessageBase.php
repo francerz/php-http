@@ -105,7 +105,7 @@ abstract class MessageBase implements MessageInterface
     public function withBody(StreamInterface $body)
     {
         $new = clone $this;
-
+        $new->body = $body;
         return $new;
     }
 }
