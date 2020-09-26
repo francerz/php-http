@@ -45,4 +45,18 @@ class UriHelper
         }
         return $default;
     }
+
+    public static function appendPath(UriInterface $uri, string $path)
+    {
+        // normalizes slash at begin of string
+        $path = ($path[0] !== '/' ? '/'.$path : $path);
+
+        $prepath = $uri->getPath();
+        if (is_null($prepath)) {
+            $prepath = '';
+        }
+        $prepath = (substr($prepath, -1) === '/' ? substr($prepath, 0, -1) : $prepath);
+
+        return $uri->withPath($prepath.$path);
+    }
 }
