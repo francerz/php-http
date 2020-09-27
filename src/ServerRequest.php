@@ -3,7 +3,7 @@
 namespace Francerz\Http;
 
 use Francerz\Http\Base\ServerRequestBase;
-use Francerz\Http\Helpers\BodyHelper;
+use Francerz\Http\Helpers\MessageHelper;
 use Francerz\Http\Traits\MessageTrait;
 
 class ServerRequest extends ServerRequestBase
@@ -48,7 +48,7 @@ class ServerRequest extends ServerRequestBase
             return $this->parsedBody;
         }
 
-        return $this->parsedBody = BodyHelper::getParsedBody($this);
+        return $this->parsedBody = MessageHelper::getContent($this);
     }
     public function withParsedBody($data)
     {
