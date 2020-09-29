@@ -1,6 +1,7 @@
 <?php
 
 use Francerz\Http\BodyParsers;
+use Francerz\Http\MediaTypes;
 use Francerz\Http\Parsers\JsonParser;
 use Francerz\Http\Parsers\UrlEncodedParser;
 use PHPUnit\Framework\TestCase;
@@ -9,9 +10,9 @@ class BodyParsersTest extends TestCase
 {
     public function testUrlEncoded()
     {
-        BodyParsers::register(new UrlEncodedParser());
+        BodyParsers::register(UrlEncodedParser::class);
 
-        $type = 'application/x-www-form-urlencoded';
+        $type = MediaTypes::APPLICATION_X_WWW_FORM_URLENCODED;
         $parser = BodyParsers::find($type);
 
         $data = array('foo'=>1, 'bar'=>2);
@@ -25,9 +26,9 @@ class BodyParsersTest extends TestCase
 
     public function testJson()
     {
-        BodyParsers::register(new JsonParser());
+        BodyParsers::register(JsonParser::class);
 
-        $type = 'application/json';
+        $type = MediaTypes::APPLICATION_JSON;
         $parser = BodyParsers::find($type);
         
         $data = new stdClass();

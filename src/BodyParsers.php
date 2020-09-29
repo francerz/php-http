@@ -2,22 +2,28 @@
 
 namespace Francerz\Http;
 
+use Exception;
 use Francerz\PowerData\Arrays;
+use InvalidArgumentException;
 
 class BodyParsers
 {
     private static $parsers = array();
     private static $typeIndex = array();
 
-    public static function register(ParserInterface $parser)
+    public static function register(string $parserClass)
     {
-        $parserClass = get_class($parser);
+        if (!in_array(ParserInterface::class, class_implements($parserClass))) {
+            throw new InvalidArgumentException(sprintf("Parser class must implement %s.", ParserInterface::class));
+        }
+
         $filter = array_filter(static::$parsers, function($v) use ($parserClass) {
             return $v instanceof $parserClass;
         });
 
         if (count($filter) > 0) return;
 
+        $parser = new $parserClass();
         static::$parsers[] = $parser;
         foreach ($parser->getSupportedTypes() as $type) {
             static::$typeIndex[$type] = $parser;
