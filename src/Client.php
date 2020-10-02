@@ -6,7 +6,7 @@ use Psr\Http\Message\RequestInterface;
 
 class Client
 {
-    private $userAgent = 'francerz-http-client-php';
+    private $userAgent = 'francerz-php-http';
     private $timeout = 30;
 
     public function setUserAgent($userAgent)
@@ -65,6 +65,7 @@ class Client
             case Methods::GET:
             case Methods::OPTIONS:
             case Methods::HEAD:
+            default:
                 $hasBody = false;
                 break;
         }
@@ -79,8 +80,7 @@ class Client
             }
 
         }
-
-
+        
         $response = curl_exec($ch);
 
         if (curl_errno($ch) !== 0) {

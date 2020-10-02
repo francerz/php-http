@@ -8,9 +8,10 @@ class Request extends RequestBase
 {
     use MessageTrait;
     
-    public function __construct(Uri $uri)
+    public function __construct(Uri $uri, string $method = Methods::GET)
     {
         parent::__construct();
+        $this->method = $method;
         $this->uri = $uri;
         $this->body = new StringStream();
     }
