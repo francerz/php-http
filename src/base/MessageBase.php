@@ -51,13 +51,16 @@ abstract class MessageBase implements MessageInterface
     public function getHeader($name) : array
     {
         $key = $this->getHeaderKey($name);
+        if (is_null($key)) {
+            return [];
+        }
         return $this->headers[$key];
     }
 
     public function getHeaderLine($name) : string
     {
-        $key = $this->getHeaderKey($name);
-        return join(',', $this->headers[$key]);
+        $header = $this->getHeader($name);
+        return join(',', $header);
     }
 
     public function withHeader($name, $value) : MessageBase
