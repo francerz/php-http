@@ -1,7 +1,6 @@
 {
     "name": "francerz/php-http",
     "description": "Basic HTTP client",
-    "version": "0.1.0",
     "autoload": {
         "psr-4" : {
             "Francerz\\Http\\" : "src"
@@ -9,7 +8,7 @@
     },
     "require": {
         "psr/http-message": "^1.0",
-        "francerz/php-power-data": "dev-master"
+        "francerz/php-power-data": "^0.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.2"

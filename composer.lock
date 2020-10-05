@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e7cbfca163049b550d56a150cdc2ce0b",
+    "content-hash": "537bd759df4245ee976e0bbfef22fb4f",
     "packages": [
         {
             "name": "francerz/php-power-data",
-            "version": "dev-master",
+            "version": "v0.1.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:francerz/php-power-data.git",
-                "reference": "9d68419eaf80c009d9b27f5ac161e1a1dd48c1cf"
+                "url": "https://github.com/francerz/php-power-data.git",
+                "reference": "33fe22280e4e2824a9361a25cd020b8e0b4ebe0e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/francerz/php-power-data/zipball/9d68419eaf80c009d9b27f5ac161e1a1dd48c1cf",
-                "reference": "9d68419eaf80c009d9b27f5ac161e1a1dd48c1cf",
+                "url": "https://api.github.com/repos/francerz/php-power-data/zipball/33fe22280e4e2824a9361a25cd020b8e0b4ebe0e",
+                "reference": "33fe22280e4e2824a9361a25cd020b8e0b4ebe0e",
                 "shasum": ""
             },
             "require-dev": {
@@ -29,22 +29,14 @@
                     "Francerz\\PowerData\\": "src"
                 }
             },
-            "scripts": {
-                "tests": [
-                    "phpunit tests"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "authors": [
                 {
                     "name": "Fran CZ"
                 }
             ],
             "description": "PHP data structures for complex data handling",
-            "support": {
-                "source": "https://github.com/francerz/php-power-data/tree/master",
-                "issues": "https://github.com/francerz/php-power-data/issues"
-            },
-            "time": "2020-09-22T17:10:25+00:00"
+            "time": "2020-10-05T22:54:16+00:00"
         },
         {
             "name": "psr/http-message",
@@ -2057,9 +2049,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "francerz/php-power-data": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
