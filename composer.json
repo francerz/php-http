@@ -1,12 +1,7 @@
 {
     "name": "francerz/php-http",
     "description": "Basic HTTP client",
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/francerz/php-power-data"
-        }
-    ],
+    "version": "0.1.0",
     "autoload": {
         "psr-4" : {
             "Francerz\\Http\\" : "src"
