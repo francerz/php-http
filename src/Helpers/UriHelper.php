@@ -22,7 +22,7 @@ class UriHelper
         return $uri->withQuery(http_build_query($params));
     }
 
-    public static function withoutQueryParam(UriInterface $uri, string $name)
+    public static function withoutQueryParam(UriInterface $uri, string $name) : UriInterface
     {
         parse_str($uri->getQuery(), $queryParams);
         unset($queryParams[$name]);
@@ -46,7 +46,31 @@ class UriHelper
         return $default;
     }
 
-    public static function appendPath(UriInterface $uri, string $path)
+    public static function withFragmentParam(UriInterface $uri, string $key, $value) : UriInterface
+    {
+        parse_str($uri->getFragment(), $params);
+        $params[$key] = $value;
+        return $uri->withFragment(http_build_query($params));
+    }
+
+    public static function withFragmentParams(UriInterface $uri, array $params, bool $replace = false) : UriInterface
+    {
+        if (!$replace) {
+            parse_str($uri->getFragment(), $fragmentParams);
+            $params = array_merge($fragmentParams, $params);
+        }
+        return $uri->withFragment(http_build_query($params));
+    }
+
+    public static function withoutFragmentParam(UriInterface $uri, string $name) : UriInterface
+    {
+        parse_str($uri->getFragment(), $params);
+        unset($params[$name]);
+
+        return $uri->withFragment(http_build_query($params));
+    }
+
+    public static function appendPath(UriInterface $uri, string $path) : UriInterface
     {
         // normalizes slash at begin of string
         $path = ($path[0] !== '/' ? '/'.$path : $path);
