@@ -2,9 +2,11 @@
 
 namespace Francerz\Http;
 
+use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
-class Client
+class Client implements ClientInterface
 {
     private $userAgent = 'francerz-php-http';
     private $timeout = 30;
@@ -28,7 +30,7 @@ class Client
         return $this->timeout;
     }
 
-    public function send(RequestInterface $request) : Response
+    public function sendRequest(RequestInterface $request) : ResponseInterface
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -85,7 +87,7 @@ class Client
 
         if (curl_errno($ch) !== 0) {
             $curl_error = curl_error($ch);
-            throw new \Exception(__CLASS__.'->'.__METHOD__.': '.$curl_error);
+            throw new RequestException(__CLASS__.'->'.__METHOD__.': '.$curl_error, 0, null, $request);
         }
 
         $httpResponse = Response::fromCURL($ch, $response);
