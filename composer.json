@@ -10,7 +10,8 @@
         "psr/http-message": "^1.0",
         "francerz/php-power-data": "dev-master",
         "psr/http-factory": "^1.0",
-        "psr/http-client": "^1.0"
+        "psr/http-client": "^1.0",
+        "francerz/php-http-tools": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.2"

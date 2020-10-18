@@ -2,6 +2,7 @@
 
 namespace Francerz\Http;
 
+use Francerz\Http\Constants\Methods;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;

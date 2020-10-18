@@ -2,7 +2,8 @@
 
 namespace Francerz\Http\Traits;
 
-use Francerz\Http\Helpers\MessageHelper;
+use Francerz\Http\Headers\AbstractAuthorizationHeader;
+use Francerz\Http\Tools\MessageHelper;
 use Psr\Http\Message\MessageInterface;
 
 trait MessageTrait
@@ -17,16 +18,13 @@ trait MessageTrait
         return $ct ?? 'application/octet';
     }
 
-    public function withAuthorizationHeader(string $type, string $content) : MessageInterface
+    public function withAuthorizationHeader(AbstractAuthorizationHeader $authHeader)
     {
-        if (strtolower($type) === 'basic') {
-            $content = base64_encode($content);
-        }
-        return $this->withHeader('Authorization', "$type $content");
+        return $this->withHeader('Authorization', $authHeader);
     }
 
-    public function getAuthorizationHeader(string &$type, string &$content)
+    public function getAuthorizationHeader() : ?AbstractAuthorizationHeader
     {
-        return MessageHelper::getAuthorizationHeader($this, $type, $content);
+        return MessageHelper::getAuthorizationHeader($this);
     }
 }

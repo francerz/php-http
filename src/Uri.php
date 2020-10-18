@@ -2,7 +2,7 @@
 namespace Francerz\Http;
 
 use Francerz\Http\Base\UriBase;
-use Francerz\Http\Helpers\UriHelper;
+use Francerz\Http\Tools\UriHelper;
 use Psr\Http\Message\UriInterface;
 
 class Uri extends UriBase

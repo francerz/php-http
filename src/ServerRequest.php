@@ -4,6 +4,7 @@ namespace Francerz\Http;
 
 use Francerz\Http\Base\ServerRequestBase;
 use Francerz\Http\Helpers\MessageHelper;
+use Francerz\Http\Tools\MessageHelper as ToolsMessageHelper;
 use Francerz\Http\Traits\MessageTrait;
 
 class ServerRequest extends ServerRequestBase
@@ -48,27 +49,17 @@ class ServerRequest extends ServerRequestBase
             return $this->parsedBody;
         }
 
-        return $this->parsedBody = MessageHelper::getContent($this);
+        return $this->parsedBody = ToolsMessageHelper::getContent($this);
     }
     public function withParsedBody($data)
     {
-        $new = clone $this;
-
-        $new->parsedBody = $data;
-
         $contentType = $this->getContentType();
-        if (empty($contentType)) {
-            $this->body = new StringStream((string)$this->parsedBody);
-            return $new;
-        }
-
-        $parser = BodyParsers::find($contentType);
-        if (empty($parser)) {
-            $this->body = new StringStream((string)$this->parsedBody);
-            return $new;
-        }
-
-        $this->body = $parser->encode($data);
+        $new = ToolsMessageHelper::withContent(
+            $this,
+            $contentType,
+            $data
+        );
+        $new->parsedBody = $data;
         return $new;
     }
 }

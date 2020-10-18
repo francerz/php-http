@@ -8,10 +8,7 @@ use Psr\Http\Message\StreamInterface;
 
 abstract class MessageBase implements MessageInterface
 {
-    const PROTOCOL_VERSION_1_0 = "1.0";
-    const PROTOCOL_VERSION_1_1 = "1.1";
-
-    protected $protocolVersion = self::PROTOCOL_VERSION_1_1;
+    protected $protocolVersion = '1.1';
     protected $headers = array();
     protected $body;
 
