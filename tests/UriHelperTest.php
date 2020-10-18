@@ -1,6 +1,6 @@
 <?php
 
-use Francerz\Http\Helpers\UriHelper;
+use Francerz\Http\Tools\UriHelper;
 use Francerz\Http\Uri;
 use PHPUnit\Framework\TestCase;
 

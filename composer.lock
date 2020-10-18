@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/francerz/php-http-tools.git",
-                "reference": "82345d4a26f12aa3041aa31807ce63d2a0056ce0"
+                "reference": "ef54898683bc5ac42d3536d5e85323c0b0348d56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/francerz/php-http-tools/zipball/82345d4a26f12aa3041aa31807ce63d2a0056ce0",
-                "reference": "82345d4a26f12aa3041aa31807ce63d2a0056ce0",
+                "url": "https://api.github.com/repos/francerz/php-http-tools/zipball/ef54898683bc5ac42d3536d5e85323c0b0348d56",
+                "reference": "ef54898683bc5ac42d3536d5e85323c0b0348d56",
                 "shasum": ""
             },
             "require": {
@@ -46,7 +46,7 @@
                 }
             ],
             "description": "PHP HTTP Tool kit compatible with PSR-7, PSR-17 and PSR-18",
-            "time": "2020-10-17T23:54:56+00:00"
+            "time": "2020-10-18T00:35:29+00:00"
         },
         {
             "name": "francerz/php-power-data",
