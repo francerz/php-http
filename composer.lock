@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9de95046a6444952c8dcfa9e1ba542f6",
+    "content-hash": "0d31b885b35b2ce47c33cdcb38bc54e1",
     "packages": [
         {
             "name": "francerz/php-http-tools",
-            "version": "dev-master",
+            "version": "v0.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/francerz/php-http-tools.git",
-                "reference": "ef54898683bc5ac42d3536d5e85323c0b0348d56"
+                "reference": "cbb12752b8648bc77f9dbcf997b3e8a52ac4677e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/francerz/php-http-tools/zipball/ef54898683bc5ac42d3536d5e85323c0b0348d56",
-                "reference": "ef54898683bc5ac42d3536d5e85323c0b0348d56",
+                "url": "https://api.github.com/repos/francerz/php-http-tools/zipball/cbb12752b8648bc77f9dbcf997b3e8a52ac4677e",
+                "reference": "cbb12752b8648bc77f9dbcf997b3e8a52ac4677e",
                 "shasum": ""
             },
             "require": {
@@ -46,11 +46,11 @@
                 }
             ],
             "description": "PHP HTTP Tool kit compatible with PSR-7, PSR-17 and PSR-18",
-            "time": "2020-10-18T00:35:29+00:00"
+            "time": "2020-10-19T20:52:30+00:00"
         },
         {
             "name": "francerz/php-power-data",
-            "version": "dev-master",
+            "version": "v0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/francerz/php-power-data.git",
@@ -1021,16 +1021,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.4.1",
+            "version": "9.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "1f09a12726593737e8a228ebb1c8647305d07c41"
+                "reference": "3866b2eeeed21b1b099c4bc0b7a1690ac6fd5baa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/1f09a12726593737e8a228ebb1c8647305d07c41",
-                "reference": "1f09a12726593737e8a228ebb1c8647305d07c41",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3866b2eeeed21b1b099c4bc0b7a1690ac6fd5baa",
+                "reference": "3866b2eeeed21b1b099c4bc0b7a1690ac6fd5baa",
                 "shasum": ""
             },
             "require": {
@@ -1116,7 +1116,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-10-11T07:41:19+00:00"
+            "time": "2020-10-19T09:23:29+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -2192,10 +2192,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "francerz/php-power-data": 20,
-        "francerz/php-http-tools": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
