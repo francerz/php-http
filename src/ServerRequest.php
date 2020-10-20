@@ -3,9 +3,9 @@
 namespace Francerz\Http;
 
 use Francerz\Http\Base\ServerRequestBase;
-use Francerz\Http\Helpers\MessageHelper;
-use Francerz\Http\Tools\MessageHelper as ToolsMessageHelper;
+use Francerz\Http\Tools\MessageHelper;
 use Francerz\Http\Traits\MessageTrait;
+use Psr\Http\Message\StreamInterface;
 
 class ServerRequest extends ServerRequestBase
 {
@@ -16,7 +16,10 @@ class ServerRequest extends ServerRequestBase
     public function __construct()
     {
         parent::__construct();
+    }
 
+    public function getCurrent()
+    {
         $this->initMessageAttributes();
         $this->initRequestAttributes();
 
@@ -43,18 +46,24 @@ class ServerRequest extends ServerRequestBase
         $this->method = $_SERVER['REQUEST_METHOD'];
     }
 
+    public function withBody(StreamInterface $body)
+    {
+        $new = parent::withBody($body);
+        $new->parsedBody = MessageHelper::getContent($this);
+        return $new;
+    }
+
     public function getParsedBody()
     {
         if (isset($this->parsedBody)) {
             return $this->parsedBody;
         }
-
-        return $this->parsedBody = ToolsMessageHelper::getContent($this);
+        return null;
     }
     public function withParsedBody($data)
     {
         $contentType = $this->getContentType();
-        $new = ToolsMessageHelper::withContent(
+        $new = MessageHelper::withContent(
             $this,
             $contentType,
             $data
