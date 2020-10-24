@@ -2,11 +2,12 @@
 
 namespace Francerz\Http;
 
+use Francerz\Http\Tools\ServerInterface;
 use Psr\Http\Message\ResponseInterface;
 
-class Server
+class Server implements ServerInterface
 {
-    public static function output(ResponseInterface $response)
+    public function emitResponse(ResponseInterface $response)
     {
         http_response_code($response->getStatusCode());
         foreach ($response->getHeaders() as $name => $values) {
