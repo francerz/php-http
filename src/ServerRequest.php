@@ -18,14 +18,17 @@ class ServerRequest extends ServerRequestBase
         parent::__construct();
     }
 
-    public function getCurrent()
+    public static function getCurrent()
     {
-        $this->initMessageAttributes();
-        $this->initRequestAttributes();
+        $request = new static();
+        $request->initMessageAttributes();
+        $request->initRequestAttributes();
 
-        $this->cookies = $_COOKIE;
-        $this->params = $_GET;
-        $this->files = $_FILES;
+        $request->cookies = $_COOKIE;
+        $request->params = $_GET;
+        $request->files = $_FILES;
+
+        return $request;
     }
 
     protected function initMessageAttributes()
