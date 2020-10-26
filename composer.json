@@ -1,5 +1,5 @@
 {
-    "name": "francerz/php-http",
+    "name": "francerz/http",
     "description": "Basic HTTP client",
     "autoload": {
         "psr-4" : {
