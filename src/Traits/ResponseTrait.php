@@ -2,11 +2,12 @@
 
 namespace Francerz\Http\Traits;
 
+use Francerz\Http\Utils\MessageHelper;
+
 trait ResponseTrait
 {
     public function isSuccess()
     {
-        $code = $this->getStatusCode();
-        return $code >= 200 && $code < 300;
+        return MessageHelper::isSuccess($this);
     }
 }

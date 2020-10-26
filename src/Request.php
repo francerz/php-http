@@ -2,8 +2,8 @@
 namespace Francerz\Http;
 
 use Francerz\Http\Base\RequestBase;
-use Francerz\Http\Constants\Methods;
 use Francerz\Http\Traits\MessageTrait;
+use Francerz\Http\Utils\Constants\Methods;
 
 class Request extends RequestBase
 {

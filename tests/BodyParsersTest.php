@@ -1,8 +1,8 @@
 <?php
 
-use Francerz\Http\Constants\MediaTypes;
 use Francerz\Http\HttpFactory;
-use Francerz\Http\Tools\BodyParserHandler;
+use Francerz\Http\Utils\BodyParserHandler;
+use Francerz\Http\Utils\Constants\MediaTypes;
 use PHPUnit\Framework\TestCase;
 
 class BodyParsersTest extends TestCase

@@ -2,7 +2,7 @@
 
 namespace Francerz\Http;
 
-use Francerz\Http\Tools\ServerInterface;
+use Francerz\Http\Utils\ServerInterface;
 use Psr\Http\Message\ResponseInterface;
 
 class Server implements ServerInterface

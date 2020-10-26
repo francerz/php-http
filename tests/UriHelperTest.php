@@ -1,7 +1,7 @@
 <?php
 
-use Francerz\Http\Tools\UriHelper;
 use Francerz\Http\Uri;
+use Francerz\Http\Utils\UriHelper;
 use PHPUnit\Framework\TestCase;
 
 class UriHelperTest extends TestCase

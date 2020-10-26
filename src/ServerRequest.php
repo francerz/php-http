@@ -3,8 +3,8 @@
 namespace Francerz\Http;
 
 use Francerz\Http\Base\ServerRequestBase;
-use Francerz\Http\Tools\MessageHelper;
 use Francerz\Http\Traits\MessageTrait;
+use Francerz\Http\Utils\MessageHelper;
 use Psr\Http\Message\StreamInterface;
 
 class ServerRequest extends ServerRequestBase

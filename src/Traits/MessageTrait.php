@@ -2,9 +2,8 @@
 
 namespace Francerz\Http\Traits;
 
-use Francerz\Http\Headers\AbstractAuthorizationHeader;
-use Francerz\Http\Tools\MessageHelper;
-use Psr\Http\Message\MessageInterface;
+use Francerz\Http\Utils\Headers\AbstractAuthorizationHeader;
+use Francerz\Http\Utils\MessageHelper;
 
 trait MessageTrait
 {
@@ -25,6 +24,6 @@ trait MessageTrait
 
     public function getAuthorizationHeader() : ?AbstractAuthorizationHeader
     {
-        return MessageHelper::getAuthorizationHeader($this);
+        return MessageHelper::getFirstAuthorizationHeader($this);
     }
 }
