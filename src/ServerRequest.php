@@ -52,7 +52,7 @@ class ServerRequest extends ServerRequestBase
     public function withBody(StreamInterface $body)
     {
         $new = parent::withBody($body);
-        $new->parsedBody = MessageHelper::getContent($this);
+        $new->parsedBody = MessageHelper::getContent($new);
         return $new;
     }
 
