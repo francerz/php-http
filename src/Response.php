@@ -15,7 +15,7 @@ class Response extends ResponseBase
         parent::__construct();
         $this->body = new StringStream();
     }
-    
+
     protected function importHeaders($headers_string)
     {
         $headers = explode("\r\n", $headers_string);
@@ -32,7 +32,7 @@ class Response extends ResponseBase
     public static function fromCURL($curl, string $response_body = '') : Response
     {
         $response = new static();
-        $response->code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $response->code = curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
 
         $header_size  = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
         $header_space = trim(substr($response_body, 0, $header_size));
