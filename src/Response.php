@@ -21,7 +21,10 @@ class Response extends ResponseBase
         $headers = explode("\r\n", $headers_string);
 
         for ($i = 2; $i < count($headers); $i++) {
-            list($header, $h_content) = explode(':', $headers[$i]);
+            $h = $headers[$i];
+            if (empty($h)) continue;
+            if (stripos($h, 'HTTP') === 0) continue;
+            list($header, $h_content) = explode(':', $h);
             $this->headers[$header] = preg_split('/,\\s*/', trim($h_content));
         }
     }
