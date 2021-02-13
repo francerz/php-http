@@ -29,7 +29,7 @@ class FileStream implements StreamInterface
     #region StreamInterface implementations
     public function __toString()
     {
-        
+        return stream_get_contents($this->handle, -1, 0);
     }
     public function close()
     {
@@ -47,7 +47,7 @@ class FileStream implements StreamInterface
     }
     public function tell()
     {
-
+        return ftell($this->handle);
     }
     public function eof() : bool
     {
@@ -55,15 +55,15 @@ class FileStream implements StreamInterface
     }
     public function isSeekable()
     {
-
+        return fseek($this->handle, 0, SEEK_CUR) !== -1;
     }
     public function seek($offset, $whence = SEEK_SET)
     {
-        
+        fseek($this->handle, $offset, $whence);
     }
     public function rewind()
     {
-        
+        rewind($this->handle);
     }
     public function isWritable()
     {
