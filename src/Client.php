@@ -2,7 +2,7 @@
 
 namespace Francerz\Http;
 
-use Francerz\Http\Utils\Constants\Methods;
+use Fig\Http\Message\RequestMethodInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -35,7 +35,6 @@ class Client implements ClientInterface
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_VERBOSE, 1);
         curl_setopt($ch, CURLOPT_HEADER, 1);
         
         curl_setopt($ch, CURLOPT_URL, (string)$request->getUri());
@@ -59,15 +58,15 @@ class Client implements ClientInterface
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
     
         switch ($method) {
-            case Methods::POST:
-            case Methods::PUT:
-            case Methods::PATCH:
+            case RequestMethodInterface::METHOD_POST:
+            case RequestMethodInterface::METHOD_PUT:
+            case RequestMethodInterface::METHOD_PATCH:
                 $hasBody = true;
                 break;
-            case Methods::DELETE:
-            case Methods::GET:
-            case Methods::OPTIONS:
-            case Methods::HEAD:
+            case RequestMethodInterface::METHOD_DELETE:
+            case RequestMethodInterface::METHOD_GET:
+            case RequestMethodInterface::METHOD_OPTIONS:
+            case RequestMethodInterface::METHOD_HEAD:
             default:
                 $hasBody = false;
                 break;
