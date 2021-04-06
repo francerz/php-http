@@ -2,6 +2,7 @@
 
 namespace Francerz\Http;
 
+use Francerz\Http\Utils\HttpFactoryManager;
 use InvalidArgumentException;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\RequestInterface;
@@ -21,6 +22,11 @@ class HttpFactory implements
     StreamFactoryInterface,
     UriFactoryInterface
 {
+    public static function getManager() : HttpFactoryManager
+    {
+        return new HttpFactoryManager(new static());
+    }
+    
     public function createRequest(string $method, $uri): RequestInterface
     {
         if (is_string($uri)) {
