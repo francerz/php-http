@@ -63,6 +63,16 @@ class Uri extends UriBase
         $this->fragment = $uri->getFragment();
     }
 
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
     public function withQueryParam(string $name, $value) : Uri
     {
         return UriHelper::withQueryParam($this, $name, $value);
