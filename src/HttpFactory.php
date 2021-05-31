@@ -12,6 +12,8 @@ use Psr\Http\Message\ServerRequestFactoryInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\UploadedFileFactoryInterface;
+use Psr\Http\Message\UploadedFileInterface;
 use Psr\Http\Message\UriFactoryInterface;
 use Psr\Http\Message\UriInterface;
 
@@ -20,6 +22,7 @@ class HttpFactory implements
     ResponseFactoryInterface,
     ServerRequestFactoryInterface,
     StreamFactoryInterface,
+    UploadedFileFactoryInterface,
     UriFactoryInterface
 {
     public static function getManager() : HttpFactoryManager
@@ -76,5 +79,15 @@ class HttpFactory implements
     public function createUri(string $uri = ''): UriInterface
     {
         return new Uri($uri);
+    }
+
+    public function createUploadedFile(
+        StreamInterface $stream,
+        ?int $size = null,
+        int $error = \UPLOAD_ERR_OK,
+        ?string $clientFilename = null,
+        ?string $clientMediaType = null
+    ): UploadedFileInterface {
+        return new UploadedFile($stream, $size, $error, $clientFilename, $clientMediaType);
     }
 }
