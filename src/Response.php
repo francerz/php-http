@@ -1,14 +1,12 @@
 <?php
 namespace Francerz\Http;
 
-use Francerz\Http\Base\ResponseBase;
-use Francerz\Http\Traits\MessageTrait;
-use Francerz\Http\Traits\ResponseTrait;
+use Psr\Http\Message\ResponseInterface;
 
-class Response extends ResponseBase
+class Response extends AbstractMessage implements ResponseInterface
 {
-    use MessageTrait;
-    use ResponseTrait;
+    protected $code;
+    protected $reasonPhrase;
 
     public function __construct()
     {
@@ -16,6 +14,32 @@ class Response extends ResponseBase
         $this->body = new StringStream();
     }
 
+    public function getStatusCode() : int
+    {
+        return $this->code;
+    }
+
+    public function withStatus($code, $reasonPhrase = '')
+    {
+        $new = clone $this;
+
+        $new->code = $code;
+        $new->reasonPhrase = $reasonPhrase;
+
+        return $new;
+    }
+
+    public function getReasonPhrase()
+    {
+        return $this->reasonPhrase;
+    }
+
+    /**
+     * @deprecated v0.3.0
+     *
+     * @param string $headers_string
+     * @return void
+     */
     protected function importHeaders($headers_string)
     {
         $headers = explode("\r\n", $headers_string);
@@ -29,6 +53,13 @@ class Response extends ResponseBase
         }
     }
 
+    /**
+     * @deprecated v0.3.0
+     *
+     * @param \CurlHandle $curl
+     * @param string $response_body
+     * @return Response
+     */
     public static function fromCURL($curl, string $response_body = '') : Response
     {
         $response = new static();

@@ -56,10 +56,7 @@ class HttpFactory implements
         if (!$uri instanceof Uri) {
             throw new InvalidArgumentException('Invalid uri argument.');
         }
-        $request = new ServerRequest();
-        return $request
-            ->withMethod($method)
-            ->withUri($uri);
+        return new ServerRequest($uri, $method, $serverParams);
     }
 
     public function createStream(string $content = ''): StreamInterface

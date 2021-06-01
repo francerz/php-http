@@ -64,16 +64,16 @@
         },
         {
             "name": "francerz/http-utils",
-            "version": "v0.2.29",
+            "version": "v0.2.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/francerz/php-http-utils.git",
-                "reference": "853b27c0f509c077f7ccfd951799828318d0a1b9"
+                "reference": "9657be7960861ebfe18fdda00521f486821e6305"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/francerz/php-http-utils/zipball/853b27c0f509c077f7ccfd951799828318d0a1b9",
-                "reference": "853b27c0f509c077f7ccfd951799828318d0a1b9",
+                "url": "https://api.github.com/repos/francerz/php-http-utils/zipball/9657be7960861ebfe18fdda00521f486821e6305",
+                "reference": "9657be7960861ebfe18fdda00521f486821e6305",
                 "shasum": ""
             },
             "require": {
@@ -113,9 +113,9 @@
             ],
             "support": {
                 "issues": "https://github.com/francerz/php-http-utils/issues",
-                "source": "https://github.com/francerz/php-http-utils/tree/v0.2.29"
+                "source": "https://github.com/francerz/php-http-utils/tree/v0.2.31"
             },
-            "time": "2021-05-31T18:20:11+00:00"
+            "time": "2021-06-01T17:28:48+00:00"
         },
         {
             "name": "francerz/php-power-data",

@@ -61,5 +61,10 @@ class UploadedFileTest extends TestCase
         $actual = $http->normalizeFiles($files);
 
         $this->assertEquals($expected, $actual);
+
+        $this->assertFalse(HttpHelper::isUploadedFileArray($files));
+        $this->assertTrue(HttpHelper::isUploadedFileArray($actual));
+        $this->assertTrue(HttpHelper::isUploadedFileArray($expected));
+
     }
 }

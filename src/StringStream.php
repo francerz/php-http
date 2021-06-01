@@ -120,12 +120,24 @@ class StringStream implements StreamInterface
     }
     #endregion
 
+    /**
+     * @deprecated v0.3.0
+     *
+     * @param string $string
+     * @return void
+     */
     public function append($string)
     {
         $this->seek(0, SEEK_END);
         $this->write($string);
     }
 
+    /**
+     * @deprecated v0.3.0
+     *
+     * @param array|string $string
+     * @return void
+     */
     public function insert($string)
     {
         $this->string = substr_replace($this->string, $string, $this->pointer, 0);

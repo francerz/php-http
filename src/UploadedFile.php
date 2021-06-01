@@ -2,7 +2,6 @@
 
 namespace Francerz\Http;
 
-use Francerz\Http\Utils\HttpHelper;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UploadedFileInterface;
 use RuntimeException;
