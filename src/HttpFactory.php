@@ -3,6 +3,7 @@
 namespace Francerz\Http;
 
 use Francerz\Http\Utils\HttpFactoryManager;
+use Francerz\Http\Utils\HttpHelper;
 use InvalidArgumentException;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\RequestInterface;
@@ -28,6 +29,11 @@ class HttpFactory implements
     public static function getManager() : HttpFactoryManager
     {
         return new HttpFactoryManager(new static());
+    }
+
+    public static function getHelper() : HttpHelper
+    {
+        return new HttpHelper(static::getManager());
     }
     
     public function createRequest(string $method, $uri): RequestInterface

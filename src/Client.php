@@ -9,8 +9,19 @@ use Psr\Http\Message\ResponseInterface;
 
 class Client implements ClientInterface
 {
+    private $httpHelper;
     private $userAgent = 'francerz-php-http';
     private $timeout = 30;
+
+    public function __construct()
+    {
+        $this->httpHelper = HttpFactory::getHelper();
+    }
+
+    public static function new()
+    {
+        return new static();
+    }
 
     public function setUserAgent($userAgent)
     {
@@ -87,10 +98,14 @@ class Client implements ClientInterface
 
         if (curl_errno($ch) !== 0) {
             $curl_error = curl_error($ch);
-            throw new RequestException(__CLASS__.'->'.__METHOD__.': '.$curl_error, 0, null, $request);
+            throw new RequestException(
+                sprintf('%s->%s: %s', __CLASS__, __METHOD__, $curl_error),
+                0, null, $request
+            );
         }
 
-        $httpResponse = Response::fromCURL($ch, $response);
+        $httpResponse = $this->httpHelper
+            ->createResponseFromCURL($ch, $response);
 
         curl_close($ch);
 

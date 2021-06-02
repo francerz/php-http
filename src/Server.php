@@ -7,6 +7,11 @@ use Psr\Http\Message\ResponseInterface;
 
 class Server implements ServerInterface
 {
+    public static function new()
+    {
+        return new static();
+    }
+
     public function emitResponse(ResponseInterface $response)
     {
         http_response_code($response->getStatusCode());
