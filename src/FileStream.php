@@ -3,6 +3,7 @@
 namespace Francerz\Http;
 
 use Psr\Http\Message\StreamInterface;
+use RuntimeException;
 
 class FileStream implements StreamInterface
 {
@@ -14,17 +15,9 @@ class FileStream implements StreamInterface
     {
         $this->path   = $path;
         $this->mode   = $openmode;
-        if (file_exists($path)) {
-            $this->open();
+        if (in_array($path, ['php://input','php://temp']) || file_exists($path)) {
+            $this->handle = fopen($path, $openmode);
         }
-    }
-
-    private function open()
-    {
-        if (isset($this->handle)) {
-            return;
-        }
-        $this->handle = fopen($this->path, $this->openmode);
     }
     
     public function getPath()
@@ -65,36 +58,57 @@ class FileStream implements StreamInterface
 
     public function tell()
     {
+        if (is_null($this->handle)) {
+            throw new RuntimeException('Invalid handle.');
+        }
         return ftell($this->handle);
     }
 
     public function eof() : bool
     {
+        if (is_null($this->handle)) {
+            return true;
+        }
         return feof($this->handle);
     }
 
     public function isSeekable()
     {
+        if (is_null($this->handle)) {
+            return false;
+        }
         return fseek($this->handle, 0, SEEK_CUR) !== -1;
     }
 
     public function seek($offset, $whence = SEEK_SET)
     {
+        if (is_null($this->handle)) {
+            return;
+        }
         fseek($this->handle, $offset, $whence);
     }
 
     public function rewind()
     {
-        rewind($this->handle);
+        if (is_null($this->handle)) {
+            throw new RuntimeException('Invalid handle');
+        }
+        $rewinded = rewind($this->handle);
+        if ($rewinded === false) {
+            throw new RuntimeException('Cannot rewind stream');
+        }
     }
 
     public function isWritable()
     {
-        return is_writable($this->path);
+        return file_exists($this->path) && is_writable($this->path);
     }
 
     public function write($string) : int
     {
+        if (is_null($this->handle)) {
+            throw new RuntimeException('Invalid handle');
+        }
         $written = fwrite($this->handle, $string);
         if ($written === false) {
             throw new \RuntimeException('Error writing file contents.');
@@ -104,11 +118,14 @@ class FileStream implements StreamInterface
 
     public function isReadable() : bool
     {
-        return is_readable($this->path);
+        return file_exists($this->path) && is_readable($this->path);
     }
 
     public function read($length) : string
     {
+        if (is_null($this->handle)) {
+            throw new RuntimeException('Invalid handle');
+        }
         $string = fread($this->handle, $length);
         if ($string === false) {
             throw new \RuntimeException('Error reading file contents.');
@@ -118,7 +135,10 @@ class FileStream implements StreamInterface
 
     public function getContents()
     {
-        $string = fread($this->handle, 0);
+        if (is_null($this->handle)) {
+            throw new RuntimeException('Invalid handle.');
+        }
+        $string = stream_get_contents($this->handle);
         if ($string === false) {
             throw new \RuntimeException('Unable to read contents.');
         }
@@ -128,7 +148,7 @@ class FileStream implements StreamInterface
     public function getMetadata($key = null)
     {
         if (is_null($this->handle)) {
-            return null;
+            return is_null($key) ? [] : null;
         }
         $meta = stream_get_meta_data($this->handle);
 
