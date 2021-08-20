@@ -115,4 +115,19 @@ class UriTest extends TestCase
         $this->assertEquals('user', $uri->getUserInfo());
         $this->assertEquals('example.com', $uri->getHost());
     }
+
+    public function testParsingRelativePath()
+    {
+        $uri = new Uri('./sibling.php');
+        $this->assertEquals('./sibling.php', $uri->getPath());
+
+        $uri = new Uri('sibling.php');
+        $this->assertEquals('sibling.php', $uri->getPath());
+
+        $uri = new Uri('/root.php');
+        $this->assertEquals('/root.php', $uri->getPath());
+        
+        $uri = new Uri('../parent_sibling.php');
+        $this->assertEquals('../parent_sibling.php', $uri->getPath());
+    }
 }
