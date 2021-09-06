@@ -12,6 +12,7 @@ class Client implements ClientInterface
     private $httpHelper;
     private $userAgent = 'francerz-php-http';
     private $timeout = 30;
+    private $cacert = null;
 
     public function __construct()
     {
@@ -30,6 +31,11 @@ class Client implements ClientInterface
     public function getUserAgent()
     {
         return $this->userAgent;
+    }
+
+    public function setCaCertFile(?string $path)
+    {
+        $this->cacert = $path;
     }
 
     public function setTimeout(int $timeout)
@@ -62,6 +68,13 @@ class Client implements ClientInterface
                 },
                 $headers,
                 array_keys($headers)
+            ));
+        }
+
+        if (isset($this->cacert)) {
+            curl_setopt_array($ch, array(
+                CURLOPT_CAINFO => $this->cacert,
+                CURLOPT_CAPATH => $this->cacert
             ));
         }
 
