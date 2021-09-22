@@ -100,7 +100,7 @@ class StringStream implements StreamInterface
             return '';
         }
         $ret = substr($this->string, $this->pointer, $length);
-        $this->pointer + $length;
+        $this->pointer += $length;
         return $ret;
     }
 
