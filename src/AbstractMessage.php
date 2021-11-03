@@ -63,7 +63,7 @@ abstract class AbstractMessage implements MessageInterface
         return join(',', $header);
     }
 
-    public function withHeader($name, $value): AbstractMessage
+    public function withHeader($name, $value)
     {
         if (!is_array($value)) {
             $value = [$value];
@@ -79,7 +79,7 @@ abstract class AbstractMessage implements MessageInterface
         return $new;
     }
 
-    public function withAddedHeader($name, $value): AbstractMessage
+    public function withAddedHeader($name, $value)
     {
         $oldValues = $this->getHeader($name);
 
@@ -90,7 +90,7 @@ abstract class AbstractMessage implements MessageInterface
         return $this->withHeader($name, array_merge($oldValues, $value));
     }
 
-    public function withoutHeader($name): AbstractMessage
+    public function withoutHeader($name)
     {
         $new = clone $this;
 
