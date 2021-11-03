@@ -199,8 +199,8 @@ class Uri implements UriInterface
     {
         $url = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http';
         $url .= '://';
-        $url .= $_SERVER['HTTP_HOST'];
-        $url .= $_SERVER['REQUEST_URI'];
+        $url .= $_SERVER['HTTP_HOST'] ?? 'localhost';
+        $url .= $_SERVER['REQUEST_URI'] ?? '/index.php';
         $url  = new static($url);
         return $url;
     }

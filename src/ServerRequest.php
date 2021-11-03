@@ -34,7 +34,7 @@ class ServerRequest extends Request implements ServerRequestInterface
     private function init()
     {
         // protocolVersion
-        $sp = $_SERVER['SERVER_PROTOCOL'];
+        $sp = $_SERVER['SERVER_PROTOCOL'] ?? 'HTTP/1.0';
         $this->protocolVersion = substr($sp, strpos($sp, '/') + 1);
 
         // headers
