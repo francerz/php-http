@@ -1,4 +1,5 @@
 <?php
+
 namespace Francerz\Http;
 
 use Francerz\Http\Utils\UriHelper;
@@ -16,7 +17,7 @@ class Uri implements UriInterface
     protected $fragment;
 
     #region UriInterface
-    public function getScheme() : string
+    public function getScheme(): string
     {
         if (!isset($this->scheme)) {
             return '';
@@ -24,7 +25,7 @@ class Uri implements UriInterface
         return $this->scheme;
     }
 
-    public function getAuthority() : string
+    public function getAuthority(): string
     {
         if (!isset($this->host)) {
             return '';
@@ -33,18 +34,18 @@ class Uri implements UriInterface
         $authority = $this->getHost();
         $userInfo = $this->getUserInfo();
         if (!empty($userInfo)) {
-            $authority = $userInfo.'@'.$authority;
+            $authority = $userInfo . '@' . $authority;
         }
 
         $port = $this->getPort();
         if (!empty($port)) {
-            $authority .= ':'.$port;
+            $authority .= ':' . $port;
         }
 
         return $authority;
     }
 
-    public function getUserInfo() : string
+    public function getUserInfo(): string
     {
         if (empty($this->user)) {
             return '';
@@ -52,13 +53,13 @@ class Uri implements UriInterface
 
         $userInfo = $this->user;
         if (!empty($this->password)) {
-            $userInfo.= ':'.$this->password;
+            $userInfo .= ':' . $this->password;
         }
 
         return $userInfo;
     }
 
-    public function getHost() : string
+    public function getHost(): string
     {
         if (!isset($this->host)) {
             return '';
@@ -66,9 +67,10 @@ class Uri implements UriInterface
         return $this->host;
     }
 
-    public function getPort() : ?int
+    public function getPort(): ?int
     {
-        if (isset($this->port) &&
+        if (
+            isset($this->port) &&
             !in_array($this->port, Ports::forScheme($this->scheme), true)
         ) {
             return $this->port;
@@ -76,7 +78,7 @@ class Uri implements UriInterface
         return null;
     }
 
-    public function getPath() : string
+    public function getPath(): string
     {
         if (!isset($this->path)) {
             return '';
@@ -84,7 +86,7 @@ class Uri implements UriInterface
         return $this->path;
     }
 
-    public function getQuery() : string
+    public function getQuery(): string
     {
         if (!isset($this->query)) {
             return '';
@@ -92,7 +94,7 @@ class Uri implements UriInterface
         return $this->query;
     }
 
-    public function getFragment() : string
+    public function getFragment(): string
     {
         if (!isset($this->fragment)) {
             return '';
@@ -100,14 +102,14 @@ class Uri implements UriInterface
         return $this->fragment;
     }
 
-    public function withScheme($scheme) : Uri
-   {
+    public function withScheme($scheme): Uri
+    {
         $new = clone $this;
         $new->scheme = strtolower($scheme);
         return $new;
     }
 
-    public function withUserInfo($user, $password = null) : Uri
+    public function withUserInfo($user, $password = null): Uri
     {
         $new = clone $this;
         $new->user = $user;
@@ -115,73 +117,73 @@ class Uri implements UriInterface
         return $new;
     }
 
-    public function withHost($host) : Uri
+    public function withHost($host): Uri
     {
         $new = clone $this;
         $new->host = strtolower($host);
         return $new;
     }
 
-    public function withPort($port) : Uri
+    public function withPort($port): Uri
     {
         $new = clone $this;
         $new->port = $port;
         return $new;
     }
 
-    public function withPath($path) : Uri
+    public function withPath($path): Uri
     {
         $new = clone $this;
         $new->path = $path;
         return $new;
     }
 
-    public function withQuery($query) : Uri
+    public function withQuery($query): Uri
     {
         $new = clone $this;
         $new->query = $query;
         return $new;
     }
 
-    public function withFragment($fragment) : Uri
+    public function withFragment($fragment): Uri
     {
         $new = clone $this;
         $new->fragment = $fragment;
         return $new;
     }
 
-    public function __toString() : string
+    public function __toString(): string
     {
         $uri = '';
 
         $scheme = $this->getScheme();
         if (!empty($scheme)) {
-            $uri.= $scheme.':';
+            $uri .= $scheme . ':';
         }
 
         $authority = $this->getAuthority();
         $path = $this->getPath();
         if (!empty($authority)) {
-            $uri.= '//'.$authority;
+            $uri .= '//' . $authority;
 
             // Adding "/" at start if path is rootless.
             if (!empty($path) && strpos($path, '/') !== 0) {
-                $path = '/'.$path;
+                $path = '/' . $path;
             }
-            $uri.= $path;
+            $uri .= $path;
         } elseif (!empty($path)) {
             // Collapses all starting "/" to one.
-            $uri.= '/'.ltrim($path, '/');
+            $uri .= '/' . ltrim($path, '/');
         }
 
         $query = $this->getQuery();
         if (!empty($query)) {
-            $uri.= '?'.$query;
+            $uri .= '?' . $query;
         }
 
         $fragment = $this->getFragment();
         if (!empty($fragment)) {
-            $uri.= '#'.$fragment;
+            $uri .= '#' . $fragment;
         }
 
         return $uri;
@@ -193,16 +195,16 @@ class Uri implements UriInterface
      *
      * @return Uri
      */
-    static public function getCurrent() : Uri
+    public static function getCurrent(): Uri
     {
         $url = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http';
-        $url.= '://';
-        $url.= $_SERVER['HTTP_HOST'];
-        $url.= $_SERVER['REQUEST_URI'];
-        $url = new static($url);
+        $url .= '://';
+        $url .= $_SERVER['HTTP_HOST'];
+        $url .= $_SERVER['REQUEST_URI'];
+        $url  = new static($url);
         return $url;
     }
-    
+
     public function __construct($uri = null)
     {
         if (is_string($uri)) {
@@ -266,7 +268,7 @@ class Uri implements UriInterface
      * @param [type] $value
      * @return Uri
      */
-    public function withQueryParam(string $name, $value) : Uri
+    public function withQueryParam(string $name, $value): Uri
     {
         return UriHelper::withQueryParam($this, $name, $value);
     }
@@ -278,7 +280,7 @@ class Uri implements UriInterface
      * @param boolean $replace
      * @return Uri
      */
-    public function withQueryParams(array $params, bool $replace = false) : Uri
+    public function withQueryParams(array $params, bool $replace = false): Uri
     {
         return UriHelper::withQueryParams($this, $params, $replace);
     }
@@ -289,7 +291,7 @@ class Uri implements UriInterface
      * @param string $name
      * @return Uri
      */
-    public function withoutQueryParam(string $name) : Uri
+    public function withoutQueryParam(string $name): Uri
     {
         return UriHelper::withoutQueryParam($this, $name);
     }

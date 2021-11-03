@@ -19,7 +19,7 @@ class FileStream implements StreamInterface
             $this->handle = fopen($path, $openmode);
         }
     }
-    
+
     public function getPath()
     {
         return $this->path;
@@ -51,7 +51,7 @@ class FileStream implements StreamInterface
         return $handle;
     }
 
-    public function getSize() : ?int
+    public function getSize(): ?int
     {
         return filesize($this->path);
     }
@@ -64,7 +64,7 @@ class FileStream implements StreamInterface
         return ftell($this->handle);
     }
 
-    public function eof() : bool
+    public function eof(): bool
     {
         if (is_null($this->handle)) {
             return true;
@@ -104,7 +104,7 @@ class FileStream implements StreamInterface
         return file_exists($this->path) && is_writable($this->path);
     }
 
-    public function write($string) : int
+    public function write($string): int
     {
         if (is_null($this->handle)) {
             throw new RuntimeException('Invalid handle');
@@ -116,12 +116,12 @@ class FileStream implements StreamInterface
         return $written;
     }
 
-    public function isReadable() : bool
+    public function isReadable(): bool
     {
         return file_exists($this->path) && is_readable($this->path);
     }
 
-    public function read($length) : string
+    public function read($length): string
     {
         if (is_null($this->handle)) {
             throw new RuntimeException('Invalid handle');
@@ -144,7 +144,7 @@ class FileStream implements StreamInterface
         }
         return $string;
     }
-    
+
     public function getMetadata($key = null)
     {
         if (is_null($this->handle)) {

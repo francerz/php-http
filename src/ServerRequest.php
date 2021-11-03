@@ -20,9 +20,12 @@ class ServerRequest extends Request implements ServerRequestInterface
     protected $attributes;
 
     protected $post;
-    
-    public function __construct(UriInterface $uri, $method = RequestMethodInterface::METHOD_GET, array $serverParams = [])
-    {
+
+    public function __construct(
+        UriInterface $uri,
+        $method = RequestMethodInterface::METHOD_GET,
+        array $serverParams = []
+    ) {
         parent::__construct($uri, $method);
         $this->serverParams = $serverParams;
         $this->init();
@@ -56,7 +59,12 @@ class ServerRequest extends Request implements ServerRequestInterface
     {
         if ($this->method === RequestMethodInterface::METHOD_POST) {
             $contentType = $this->getHeaderLine('Content-Type');
-            if (in_array($contentType, [MediaTypes::APPLICATION_X_WWW_FORM_URLENCODED, MediaTypes::MULTIPART_FORM_DATA])) {
+            if (
+                in_array(
+                    $contentType,
+                    [MediaTypes::APPLICATION_X_WWW_FORM_URLENCODED, MediaTypes::MULTIPART_FORM_DATA]
+                )
+            ) {
                 return $_POST;
             }
         }
@@ -73,7 +81,7 @@ class ServerRequest extends Request implements ServerRequestInterface
         return $this->cookies;
     }
 
-    public function withCookieParams(array $cookies) : ServerRequest
+    public function withCookieParams(array $cookies): ServerRequest
     {
         $new = clone $this;
         $new->cookies = $cookies;
@@ -85,7 +93,7 @@ class ServerRequest extends Request implements ServerRequestInterface
         return $this->query;
     }
 
-    public function withQueryParams(array $query) : ServerRequest
+    public function withQueryParams(array $query): ServerRequest
     {
         $new = clone $this;
         $new->query = $query;
@@ -97,7 +105,7 @@ class ServerRequest extends Request implements ServerRequestInterface
         return $this->files;
     }
 
-    public function withUploadedFiles(array $uploadedFiles) : ServerRequest
+    public function withUploadedFiles(array $uploadedFiles): ServerRequest
     {
         if (!HttpHelper::isUploadedFileArray($uploadedFiles)) {
             throw new \InvalidArgumentException('Argument MUST be a UploadedFileInterface array.');
@@ -131,7 +139,7 @@ class ServerRequest extends Request implements ServerRequestInterface
         return $new;
     }
 
-    public function getAttributes() : array
+    public function getAttributes(): array
     {
         return $this->attributes;
     }
@@ -144,14 +152,14 @@ class ServerRequest extends Request implements ServerRequestInterface
         return $this->attributes[$name];
     }
 
-    public function withAttribute($name, $value) : ServerRequest
+    public function withAttribute($name, $value): ServerRequest
     {
         $new = clone $this;
         $new->attributes[$name] = $value;
         return $new;
     }
 
-    public function withoutAttribute($name) : ServerRequest
+    public function withoutAttribute($name): ServerRequest
     {
         $new = clone $this;
         if (array_key_exists($name, $new->attributes)) {

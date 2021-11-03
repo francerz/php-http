@@ -1,4 +1,5 @@
 <?php
+
 namespace Francerz\Http;
 
 use Fig\Http\Message\RequestMethodInterface;
@@ -18,7 +19,7 @@ class Request extends AbstractMessage implements RequestInterface
         $this->uri = $uri;
         $this->body = new StringStream();
     }
-    
+
     public function getRequestTarget()
     {
         if (isset($this->requestTarget)) {
@@ -30,7 +31,7 @@ class Request extends AbstractMessage implements RequestInterface
             if (empty($query)) {
                 return $path;
             }
-            return $path.'?'.$query;
+            return $path . '?' . $query;
         }
         return "/";
     }

@@ -24,31 +24,31 @@ abstract class AbstractMessage implements MessageInterface
     {
         return $this->protocolVersion;
     }
-    
+
     public function withProtocolVersion($version)
     {
         $new = clone $this;
         $new->protocolVersion = $version;
         return $new;
     }
-    
+
     protected function getHeaderKey($name)
     {
         return Arrays::keyInsensitive($this->headers, $name);
     }
 
-    public function getHeaders() : array
+    public function getHeaders(): array
     {
         return $this->headers;
     }
 
-    public function hasHeader($name) : bool
+    public function hasHeader($name): bool
     {
         $key = $this->getHeaderKey($name);
         return ($key !== null);
     }
 
-    public function getHeader($name) : array
+    public function getHeader($name): array
     {
         $key = $this->getHeaderKey($name);
         if (is_null($key)) {
@@ -57,18 +57,18 @@ abstract class AbstractMessage implements MessageInterface
         return $this->headers[$key];
     }
 
-    public function getHeaderLine($name) : string
+    public function getHeaderLine($name): string
     {
         $header = $this->getHeader($name);
         return join(',', $header);
     }
 
-    public function withHeader($name, $value) : AbstractMessage
+    public function withHeader($name, $value): AbstractMessage
     {
         if (!is_array($value)) {
             $value = [$value];
         }
-        
+
         $new = clone $this;
 
         $key = $new->getHeaderKey($name);
@@ -79,7 +79,7 @@ abstract class AbstractMessage implements MessageInterface
         return $new;
     }
 
-    public function withAddedHeader($name, $value) : AbstractMessage
+    public function withAddedHeader($name, $value): AbstractMessage
     {
         $oldValues = $this->getHeader($name);
 
@@ -90,7 +90,7 @@ abstract class AbstractMessage implements MessageInterface
         return $this->withHeader($name, array_merge($oldValues, $value));
     }
 
-    public function withoutHeader($name) : AbstractMessage
+    public function withoutHeader($name): AbstractMessage
     {
         $new = clone $this;
 
@@ -100,7 +100,7 @@ abstract class AbstractMessage implements MessageInterface
         return $new;
     }
 
-    public function getBody() : StreamInterface
+    public function getBody(): StreamInterface
     {
         return $this->body;
     }

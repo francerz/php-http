@@ -11,8 +11,10 @@ class StringStream implements StreamInterface
 
     public function __construct($string = null)
     {
-        if (!isset($string)) $string = '';
-        
+        if (!isset($string)) {
+            $string = '';
+        }
+
         $this->pointer = 0;
         $this->string = $string;
     }
@@ -22,10 +24,11 @@ class StringStream implements StreamInterface
     {
         return $this->string;
     }
+
     public function close()
     {
-
     }
+
     public function detach()
     {
         $string = $this->string;
@@ -94,7 +97,7 @@ class StringStream implements StreamInterface
         return true;
     }
 
-    public function read($length) : string
+    public function read($length): string
     {
         if ($this->pointer >= strlen($this->string)) {
             return '';

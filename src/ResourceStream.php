@@ -12,11 +12,9 @@ class ResourceStream implements StreamInterface
     }
     public function close()
     {
-
     }
     public function detach()
     {
-        
     }
     public function getSize()
     {
@@ -36,11 +34,9 @@ class ResourceStream implements StreamInterface
     }
     public function seek($offset, $whence = SEEK_SET)
     {
-        
     }
     public function rewind()
     {
-        
     }
     public function isWritable()
     {
@@ -48,11 +44,9 @@ class ResourceStream implements StreamInterface
     }
     public function write($string)
     {
-        
     }
     public function isReadable()
     {
-        
     }
     public function read($length)
     {
@@ -60,10 +54,8 @@ class ResourceStream implements StreamInterface
     }
     public function getContents()
     {
-        
     }
     public function getMetadata($key = null)
     {
-        
     }
 }

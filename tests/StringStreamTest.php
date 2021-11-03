@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests;
+
 use Francerz\Http\StringStream;
 use PHPUnit\Framework\TestCase;
 
@@ -45,7 +47,7 @@ class StringStreamTest extends TestCase
         $string->seek(strlen($remain) * -1, SEEK_CUR);
         $this->assertEquals(5, $string->tell());
 
-        $string->write(' '.$remain);
+        $string->write(' ' . $remain);
         $this->assertEquals('hello world', (string)$string);
         $this->assertEquals(11, $string->getSize());
         $this->assertEquals(11, $string->tell());

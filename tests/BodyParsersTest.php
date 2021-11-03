@@ -1,9 +1,12 @@
 <?php
 
+namespace Tests;
+
 use Francerz\Http\HttpFactory;
 use Francerz\Http\Utils\BodyParserHandler;
 use Francerz\Http\Utils\Constants\MediaTypes;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 class BodyParsersTest extends TestCase
 {
@@ -13,8 +16,8 @@ class BodyParsersTest extends TestCase
         $type = MediaTypes::APPLICATION_X_WWW_FORM_URLENCODED;
         $parser = BodyParserHandler::find($type);
 
-        $data = array('foo'=>1, 'bar'=>2);
-        
+        $data = array('foo' => 1, 'bar' => 2);
+
         $serialized = $parser->unparse($httpFactory, $data);
         $this->assertEquals('foo=1&bar=2', $serialized);
 
@@ -24,10 +27,10 @@ class BodyParsersTest extends TestCase
 
     public function testJson()
     {
-        $httpFactory= new HttpFactory();
+        $httpFactory = new HttpFactory();
         $type = MediaTypes::APPLICATION_JSON;
         $parser = BodyParserHandler::find($type);
-        
+
         $data = new stdClass();
         $data->foo = 1;
         $data->bar = 2;

@@ -38,7 +38,7 @@ class UploadedFile implements UploadedFileInterface
         if ($this->moved) {
             throw new RuntimeException('Cannot find stream source');
         }
-        return $this->stream;  
+        return $this->stream;
     }
 
     public function moveTo($targetPath)

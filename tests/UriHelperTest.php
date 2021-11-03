@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests;
+
 use Francerz\Http\Uri;
 use Francerz\Http\Utils\UriHelper;
 use PHPUnit\Framework\TestCase;

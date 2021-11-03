@@ -26,16 +26,16 @@ class HttpFactory implements
     UploadedFileFactoryInterface,
     UriFactoryInterface
 {
-    public static function getManager() : HttpFactoryManager
+    public static function getManager(): HttpFactoryManager
     {
         return new HttpFactoryManager(new static());
     }
 
-    public static function getHelper() : HttpHelper
+    public static function getHelper(): HttpHelper
     {
         return new HttpHelper(static::getManager());
     }
-    
+
     public function createRequest(string $method, $uri): RequestInterface
     {
         if (is_string($uri)) {

@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests;
+
 use Francerz\Http\HttpFactory;
 use Francerz\Http\Utils\HttpFactoryManager;
 use Francerz\Http\Utils\HttpHelper;
@@ -22,27 +24,27 @@ class UploadedFileTest extends TestCase
                 'error' => array(
                     0 => 0,
                     'root' => 0,
-                    'inner'=> array(0 => 0)
+                    'inner' => array(0 => 0)
                 ),
                 'size' => array(
                     0 => 0,
                     'root' => 0,
-                    'inner'=> array(0 => 0)
+                    'inner' => array(0 => 0)
                 ),
                 'tmp_name' => array(
                     0 => '/tmp/multiple0.tmp',
                     'root' => '/tmp/multipleRoot.tmp',
-                    'inner'=> array(0 => '/tmp/multipleInner0.tmp')
+                    'inner' => array(0 => '/tmp/multipleInner0.tmp')
                 ),
                 'name' => array(
                     0 => 'multiple0.txt',
                     'root' => 'multipleRoot.txt',
-                    'inner'=> array(0 => 'multipleInner0.txt')
+                    'inner' => array(0 => 'multipleInner0.txt')
                 ),
                 'type' => array(
                     0 => 'text/plain',
                     'root' => 'text/plain',
-                    'inner'=> array(0 => 'text/plain')
+                    'inner' => array(0 => 'text/plain')
                 )
             )
         );
@@ -65,6 +67,5 @@ class UploadedFileTest extends TestCase
         $this->assertFalse(HttpHelper::isUploadedFileArray($files));
         $this->assertTrue(HttpHelper::isUploadedFileArray($actual));
         $this->assertTrue(HttpHelper::isUploadedFileArray($expected));
-
     }
 }

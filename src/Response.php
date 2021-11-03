@@ -1,4 +1,5 @@
 <?php
+
 namespace Francerz\Http;
 
 use Psr\Http\Message\ResponseInterface;
@@ -14,7 +15,7 @@ class Response extends AbstractMessage implements ResponseInterface
         $this->body = new StringStream();
     }
 
-    public function getStatusCode() : int
+    public function getStatusCode(): int
     {
         return $this->code;
     }
@@ -46,8 +47,12 @@ class Response extends AbstractMessage implements ResponseInterface
 
         for ($i = 2; $i < count($headers); $i++) {
             $h = $headers[$i];
-            if (empty($h)) continue;
-            if (stripos($h, 'HTTP') === 0) continue;
+            if (empty($h)) {
+                continue;
+            }
+            if (stripos($h, 'HTTP') === 0) {
+                continue;
+            }
             list($header, $h_content) = explode(':', $h);
             $this->headers[$header] = preg_split('/,\\s*/', trim($h_content));
         }
@@ -56,11 +61,11 @@ class Response extends AbstractMessage implements ResponseInterface
     /**
      * @deprecated v0.3.0
      *
-     * @param \CurlHandle $curl
+     * @param \CurlHandle|resource $curl
      * @param string $response_body
      * @return Response
      */
-    public static function fromCURL($curl, string $response_body = '') : Response
+    public static function fromCURL($curl, string $response_body = ''): Response
     {
         $response = new static();
         $response->code = curl_getinfo($curl, CURLINFO_RESPONSE_CODE);

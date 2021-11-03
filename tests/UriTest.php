@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests;
+
 use Francerz\Http\Uri;
 use PHPUnit\Framework\TestCase;
 
@@ -57,7 +59,7 @@ class UriTest extends TestCase
     {
         $url = 'https://user:pass@www.example.com:8080/path/to/doc?query=string#fragment';
         $uri = new Uri($url);
-        
+
         $this->assertEquals('https', $uri->getScheme());
         $this->assertEquals('user:pass', $uri->getUserInfo());
         $this->assertEquals('www.example.com', $uri->getHost());
@@ -101,8 +103,8 @@ class UriTest extends TestCase
             (string)$uri3
         );
 
-        $uri4 = $uri3->withQueryParams(['attr1'=>1], false);
-        $this->assertEquals(['attr2'=>'new_value','attr1'=>1], $uri4->getQueryParams());
+        $uri4 = $uri3->withQueryParams(['attr1' => 1], false);
+        $this->assertEquals(['attr2' => 'new_value','attr1' => 1], $uri4->getQueryParams());
     }
 
     public function testParsingMailTo()
@@ -126,7 +128,7 @@ class UriTest extends TestCase
 
         $uri = new Uri('/root.php');
         $this->assertEquals('/root.php', $uri->getPath());
-        
+
         $uri = new Uri('../parent_sibling.php');
         $this->assertEquals('../parent_sibling.php', $uri->getPath());
     }

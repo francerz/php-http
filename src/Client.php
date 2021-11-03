@@ -49,17 +49,17 @@ class Client implements ClientInterface
         $this->timeout = $timeout;
     }
 
-    public function getTimeout() : int
+    public function getTimeout(): int
     {
         return $this->timeout;
     }
 
-    public function sendRequest(RequestInterface $request) : ResponseInterface
+    public function sendRequest(RequestInterface $request): ResponseInterface
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HEADER, 1);
-        
+
         curl_setopt($ch, CURLOPT_URL, (string)$request->getUri());
 
         if (!empty($this->timeout)) {
@@ -69,7 +69,7 @@ class Client implements ClientInterface
         $headers = $request->getHeaders();
         if (!empty($headers)) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, array_map(
-                function($v, $k) {
+                function ($v, $k) {
                     return sprintf('%s: %s', $k, join(',', $v));
                 },
                 $headers,
@@ -91,7 +91,7 @@ class Client implements ClientInterface
 
         $method = $request->getMethod();
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
-    
+
         switch ($method) {
             case RequestMethodInterface::METHOD_POST:
             case RequestMethodInterface::METHOD_PUT:
@@ -115,16 +115,17 @@ class Client implements ClientInterface
                     CURLOPT_POSTFIELDS => (string)$body
                 ));
             }
-
         }
-        
+
         $response = curl_exec($ch);
 
         if (curl_errno($ch) !== 0) {
             $curl_error = curl_error($ch);
             throw new RequestException(
                 sprintf('%s->%s: %s', __CLASS__, __METHOD__, $curl_error),
-                0, null, $request
+                0,
+                null,
+                $request
             );
         }
 
