@@ -6,47 +6,64 @@ use Psr\Http\Message\StreamInterface;
 
 class ResourceStream implements StreamInterface
 {
+    /** @var resource */
+    private $stream;
+    /**
+     * @param resource $stream
+     */
+    public function __construct($stream)
+    {
+        $this->stream = $stream;
+    }
     public function __toString()
     {
-        return '';
+        return fgetc($this->stream);
     }
     public function close()
     {
+        fclose($this->stream);
     }
     public function detach()
     {
+        return null;
     }
     public function getSize()
     {
-        return 0;
+        return null;
     }
     public function tell()
     {
-        return 0;
+        return ftell($this->stream);
     }
     public function eof()
     {
-        return true;
+        return feof($this->stream);
     }
     public function isSeekable()
     {
-        return false;
+        return $this->getMetadata('seekable') ?? false;
     }
     public function seek($offset, $whence = SEEK_SET)
     {
+        fseek($this->stream, $offset, $whence);
     }
     public function rewind()
     {
+        fseek($this->stream, 0, SEEK_SET);
     }
     public function isWritable()
     {
-        return false;
+        $mode = $this->getMetadata('mode');
+        return strpos($mode, 'w') !== false;
     }
     public function write($string)
     {
+        fwrite($this->stream, $string);
     }
     public function isReadable()
     {
+        $mode = $this->getMetadata('mode');
+        return strpos($mode, 'r') !== false;
     }
     public function read($length)
     {
@@ -57,5 +74,10 @@ class ResourceStream implements StreamInterface
     }
     public function getMetadata($key = null)
     {
+        $meta = stream_get_meta_data($this->stream);
+        if (is_null($key)) {
+            return $meta;
+        }
+        return $meta[$key] ?? null;
     }
 }
