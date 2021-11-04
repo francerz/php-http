@@ -17,7 +17,7 @@ class ResourceStream implements StreamInterface
     }
     public function __toString()
     {
-        return fgetc($this->stream);
+        return stream_get_contents($this->stream);
     }
     public function close()
     {
