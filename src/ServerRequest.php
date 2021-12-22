@@ -38,14 +38,16 @@ class ServerRequest extends Request implements ServerRequestInterface
         $this->protocolVersion = substr($sp, strpos($sp, '/') + 1);
 
         // headers
-        $headers = getallheaders();
+        $headers = function_exists('getallheaders') ?
+            getallheaders() :
+            [];
         foreach ($headers as $hname => $hcontent) {
             $this->headers[$hname] = preg_split('/(,\\s*)/', $hcontent);
         }
 
-        $this->files = $this->http->normalizeFiles($_FILES);
-        $this->cookies = $_COOKIE;
-        $this->query = $_GET;
+        $this->files = $this->http->normalizeFiles($_FILES ?? []);
+        $this->cookies = $_COOKIE ?? [];
+        $this->query = $_GET ?? [];
 
         // body
         $streamFactory = $this->http->getHttpFactoryManager()->getStreamFactory();
@@ -65,7 +67,7 @@ class ServerRequest extends Request implements ServerRequestInterface
                     [MediaTypes::APPLICATION_X_WWW_FORM_URLENCODED, MediaTypes::MULTIPART_FORM_DATA]
                 )
             ) {
-                return $_POST;
+                return $_POST ?? [];
             }
         }
         return HttpHelper::getContent($this);
@@ -118,23 +120,18 @@ class ServerRequest extends Request implements ServerRequestInterface
 
     public function withBody(StreamInterface $body)
     {
-        $new = parent::withBody($body);
-        $new->parsedBody = null;
+        $new = clone $this;
+        $new->body = $body;
         return $new;
     }
 
     public function getParsedBody()
     {
-        if (isset($this->parsedBody)) {
-            return $this->parsedBody;
-        }
-        $this->parsedBody = HttpHelper::getContent($this);
         return $this->parsedBody;
     }
     public function withParsedBody($data)
     {
-        $contentType = $this->getHeaderLine('Content-Type');
-        $new = $this->http->withContent($this, $contentType, $data);
+        $new = clone $this;
         $new->parsedBody = $data;
         return $new;
     }
