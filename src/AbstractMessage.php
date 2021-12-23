@@ -7,6 +7,9 @@ use Francerz\PowerData\Arrays;
 use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\StreamInterface;
 
+/**
+ * @internal
+ */
 abstract class AbstractMessage implements MessageInterface
 {
     protected $http;
@@ -102,6 +105,9 @@ abstract class AbstractMessage implements MessageInterface
 
     public function getBody(): StreamInterface
     {
+        if (is_null($this->body)) {
+            $this->body = new StringStream();
+        }
         return $this->body;
     }
 

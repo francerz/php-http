@@ -9,12 +9,8 @@ class StringStream implements StreamInterface
     private $string;
     private $pointer;
 
-    public function __construct($string = null)
+    public function __construct($string = '')
     {
-        if (!isset($string)) {
-            $string = '';
-        }
-
         $this->pointer = 0;
         $this->string = $string;
     }
