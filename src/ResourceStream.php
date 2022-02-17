@@ -25,11 +25,16 @@ class ResourceStream implements StreamInterface
     }
     public function detach()
     {
-        return null;
+        unset($this->stream);
     }
     public function getSize()
     {
-        return null;
+        if (!isset($this->stream)) {
+            return null;
+        }
+
+        $stats = fstat($this->stream);
+        return $stats['size'] ?? null;
     }
     public function tell()
     {
@@ -67,10 +72,19 @@ class ResourceStream implements StreamInterface
     }
     public function read($length)
     {
-        return null;
+        $string = fread($this->stream, $length);
+        if ($string === false) {
+            return '';
+        }
+        return $string;
     }
     public function getContents()
     {
+        $contents = stream_get_contents($this->stream);
+        if ($contents === false) {
+            return '';
+        }
+        return $contents;
     }
     public function getMetadata($key = null)
     {
