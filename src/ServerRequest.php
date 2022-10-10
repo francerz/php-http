@@ -17,7 +17,7 @@ class ServerRequest extends Request implements ServerRequestInterface
     protected $cookies;
     protected $query;
     protected $files;
-    protected $attributes;
+    protected $attributes = [];
 
     protected $post;
 
