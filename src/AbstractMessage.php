@@ -63,7 +63,7 @@ abstract class AbstractMessage implements MessageInterface
     public function getHeaderLine($name): string
     {
         $header = $this->getHeader($name);
-        return join(',', $header);
+        return join(', ', $header);
     }
 
     public function withHeader($name, $value)
