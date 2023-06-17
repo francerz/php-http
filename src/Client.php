@@ -70,7 +70,7 @@ class Client implements ClientInterface
         if (!empty($headers)) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, array_map(
                 function ($v, $k) {
-                    return sprintf('%s: %s', $k, join(',', $v));
+                    return sprintf('%s: %s', $k, join(', ', $v));
                 },
                 $headers,
                 array_keys($headers)
