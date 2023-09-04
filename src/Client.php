@@ -80,7 +80,8 @@ class Client implements ClientInterface
         if (!$this->sslCheck) {
             curl_setopt_array($ch, array(
                 CURLOPT_SSL_VERIFYHOST => $this->sslCheck,
-                CURLOPT_SSL_VERIFYPEER => $this->sslCheck
+                CURLOPT_SSL_VERIFYPEER => $this->sslCheck,
+                CURLOPT_SSL_CIPHER_LIST => 'DEFAULT@SECLEVEL=1'
             ));
         } elseif (isset($this->cacert)) {
             curl_setopt_array($ch, array(
