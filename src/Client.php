@@ -14,6 +14,7 @@ class Client implements ClientInterface
     private $timeout = 30;
     private $cacert = null;
     private $sslCheck = true;
+    private $smallDHKey = false;
 
     public function __construct()
     {
@@ -54,6 +55,11 @@ class Client implements ClientInterface
         return $this->timeout;
     }
 
+    public function enableSmallDHKey(bool $enable = true)
+    {
+        $this->smallDHKey = $enable;
+    }
+
     public function sendRequest(RequestInterface $request): ResponseInterface
     {
         $ch = curl_init();
@@ -80,14 +86,17 @@ class Client implements ClientInterface
         if (!$this->sslCheck) {
             curl_setopt_array($ch, array(
                 CURLOPT_SSL_VERIFYHOST => $this->sslCheck,
-                CURLOPT_SSL_VERIFYPEER => $this->sslCheck,
-                CURLOPT_SSL_CIPHER_LIST => 'DEFAULT@SECLEVEL=1'
+                CURLOPT_SSL_VERIFYPEER => $this->sslCheck
             ));
         } elseif (isset($this->cacert)) {
             curl_setopt_array($ch, array(
                 CURLOPT_CAINFO => $this->cacert,
                 CURLOPT_CAPATH => $this->cacert
             ));
+        }
+
+        if ($this->smallDHKey) {
+            curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'DEFAULT@SECLEVEL=1');
         }
 
         $method = $request->getMethod();
