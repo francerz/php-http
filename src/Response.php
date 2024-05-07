@@ -20,7 +20,7 @@ class Response extends AbstractMessage implements ResponseInterface
         return $this->code;
     }
 
-    public function withStatus($code, $reasonPhrase = '')
+    public function withStatus($code, $reasonPhrase = ''): ResponseInterface
     {
         $new = clone $this;
 
@@ -30,7 +30,7 @@ class Response extends AbstractMessage implements ResponseInterface
         return $new;
     }
 
-    public function getReasonPhrase()
+    public function getReasonPhrase(): string
     {
         return $this->reasonPhrase;
     }

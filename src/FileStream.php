@@ -31,12 +31,12 @@ class FileStream implements StreamInterface
     }
 
     #region StreamInterface implementations
-    public function __toString()
+    public function __toString(): string
     {
         return stream_get_contents($this->handle, -1, 0);
     }
 
-    public function close()
+    public function close(): void
     {
         if (isset($this->handle)) {
             return;
@@ -56,7 +56,7 @@ class FileStream implements StreamInterface
         return filesize($this->path);
     }
 
-    public function tell()
+    public function tell(): int
     {
         if (is_null($this->handle)) {
             throw new RuntimeException('Invalid handle.');
@@ -72,7 +72,7 @@ class FileStream implements StreamInterface
         return feof($this->handle);
     }
 
-    public function isSeekable()
+    public function isSeekable(): bool
     {
         if (is_null($this->handle)) {
             return false;
@@ -80,7 +80,7 @@ class FileStream implements StreamInterface
         return fseek($this->handle, 0, SEEK_CUR) !== -1;
     }
 
-    public function seek($offset, $whence = SEEK_SET)
+    public function seek($offset, $whence = SEEK_SET): void
     {
         if (is_null($this->handle)) {
             return;
@@ -88,7 +88,7 @@ class FileStream implements StreamInterface
         fseek($this->handle, $offset, $whence);
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         if (is_null($this->handle)) {
             throw new RuntimeException('Invalid handle');
@@ -99,7 +99,7 @@ class FileStream implements StreamInterface
         }
     }
 
-    public function isWritable()
+    public function isWritable(): bool
     {
         return file_exists($this->path) && is_writable($this->path);
     }
@@ -133,7 +133,7 @@ class FileStream implements StreamInterface
         return $string;
     }
 
-    public function getContents()
+    public function getContents(): string
     {
         if (is_null($this->handle)) {
             throw new RuntimeException('Invalid handle.');

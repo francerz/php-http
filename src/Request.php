@@ -20,7 +20,7 @@ class Request extends AbstractMessage implements RequestInterface
         $this->body = new StringStream();
     }
 
-    public function getRequestTarget()
+    public function getRequestTarget(): string
     {
         if (isset($this->requestTarget)) {
             return $this->requestTarget;
@@ -36,31 +36,31 @@ class Request extends AbstractMessage implements RequestInterface
         return "/";
     }
 
-    public function withRequestTarget($requestTarget)
+    public function withRequestTarget($requestTarget): RequestInterface
     {
         $new = clone $this;
         $new->requestTarget = $requestTarget;
         return $new;
     }
 
-    public function getMethod()
+    public function getMethod(): string
     {
         return $this->method;
     }
 
-    public function withMethod($method)
+    public function withMethod($method): RequestInterface
     {
         $new = clone $this;
         $new->method = $method;
         return $new;
     }
 
-    public function getUri()
+    public function getUri(): UriInterface
     {
         return $this->uri;
     }
 
-    public function withUri(UriInterface $uri, $preserveHost = false)
+    public function withUri(UriInterface $uri, $preserveHost = false): RequestInterface
     {
         $new = clone $this;
         $new->uri = $uri;

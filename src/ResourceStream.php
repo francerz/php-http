@@ -19,7 +19,7 @@ class ResourceStream implements StreamInterface
     {
         return stream_get_contents($this->stream);
     }
-    public function close()
+    public function close(): void
     {
         fclose($this->stream);
     }
@@ -27,7 +27,7 @@ class ResourceStream implements StreamInterface
     {
         unset($this->stream);
     }
-    public function getSize()
+    public function getSize(): int
     {
         if (!isset($this->stream)) {
             return null;
@@ -36,41 +36,42 @@ class ResourceStream implements StreamInterface
         $stats = fstat($this->stream);
         return $stats['size'] ?? null;
     }
-    public function tell()
+    public function tell(): int
     {
         return ftell($this->stream);
     }
-    public function eof()
+    public function eof(): bool
     {
         return feof($this->stream);
     }
-    public function isSeekable()
+    public function isSeekable(): bool
     {
         return $this->getMetadata('seekable') ?? false;
     }
-    public function seek($offset, $whence = SEEK_SET)
+    public function seek($offset, $whence = SEEK_SET): void
     {
         fseek($this->stream, $offset, $whence);
     }
-    public function rewind()
+    public function rewind(): void
     {
         fseek($this->stream, 0, SEEK_SET);
     }
-    public function isWritable()
+    public function isWritable(): bool
     {
         $mode = $this->getMetadata('mode');
         return strpos($mode, 'w') !== false;
     }
-    public function write($string)
+    public function write(string $string): int
     {
-        fwrite($this->stream, $string);
+        return fwrite($this->stream, $string);
     }
-    public function isReadable()
+    public function isReadable(): bool
     {
         $mode = $this->getMetadata('mode');
         return strpos($mode, 'r') !== false;
     }
-    public function read($length)
+
+    public function read(int $length): string
     {
         $string = fread($this->stream, $length);
         if ($string === false) {
@@ -78,7 +79,7 @@ class ResourceStream implements StreamInterface
         }
         return $string;
     }
-    public function getContents()
+    public function getContents(): string
     {
         $contents = stream_get_contents($this->stream);
         if ($contents === false) {

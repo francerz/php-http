@@ -33,7 +33,7 @@ class UploadedFile implements UploadedFileInterface
         $this->streamPath = $stream->getMetadata('uri');
     }
 
-    public function getStream()
+    public function getStream(): StreamInterface
     {
         if ($this->moved) {
             throw new RuntimeException('Cannot find stream source');
@@ -41,7 +41,7 @@ class UploadedFile implements UploadedFileInterface
         return $this->stream;
     }
 
-    public function moveTo($targetPath)
+    public function moveTo($targetPath): void
     {
         if (is_null($this->streamPath)) {
             throw new RuntimeException('FileStream without source path');
@@ -55,22 +55,22 @@ class UploadedFile implements UploadedFileInterface
         $this->moved = true;
     }
 
-    public function getSize()
+    public function getSize(): int
     {
         return $this->size;
     }
 
-    public function getError()
+    public function getError(): int
     {
         return $this->error;
     }
 
-    public function getClientFilename()
+    public function getClientFilename(): string
     {
         return $this->name;
     }
 
-    public function getClientMediaType()
+    public function getClientMediaType(): string
     {
         return $this->type;
     }

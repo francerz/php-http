@@ -5,6 +5,7 @@ namespace Francerz\Http;
 use Fig\Http\Message\RequestMethodInterface;
 use Francerz\Http\Utils\Constants\MediaTypes;
 use Francerz\Http\Utils\HttpHelper;
+use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriInterface;
@@ -73,41 +74,41 @@ class ServerRequest extends Request implements ServerRequestInterface
         return HttpHelper::getContent($this);
     }
 
-    public function getServerParams()
+    public function getServerParams(): array
     {
         return $this->serverParams;
     }
 
-    public function getCookieParams()
+    public function getCookieParams(): array
     {
         return $this->cookies;
     }
 
-    public function withCookieParams(array $cookies): ServerRequest
+    public function withCookieParams(array $cookies): ServerRequestInterface
     {
         $new = clone $this;
         $new->cookies = $cookies;
         return $new;
     }
 
-    public function getQueryParams()
+    public function getQueryParams(): array
     {
         return $this->query;
     }
 
-    public function withQueryParams(array $query): ServerRequest
+    public function withQueryParams(array $query): ServerRequestInterface
     {
         $new = clone $this;
         $new->query = $query;
         return $new;
     }
 
-    public function getUploadedFiles()
+    public function getUploadedFiles(): array
     {
         return $this->files;
     }
 
-    public function withUploadedFiles(array $uploadedFiles): ServerRequest
+    public function withUploadedFiles(array $uploadedFiles): ServerRequestInterface
     {
         if (!HttpHelper::isUploadedFileArray($uploadedFiles)) {
             throw new \InvalidArgumentException('Argument MUST be a UploadedFileInterface array.');
@@ -118,7 +119,7 @@ class ServerRequest extends Request implements ServerRequestInterface
         return $new;
     }
 
-    public function withBody(StreamInterface $body)
+    public function withBodsy(StreamInterface $body): MessageInterface
     {
         $new = clone $this;
         $new->body = $body;
@@ -129,7 +130,8 @@ class ServerRequest extends Request implements ServerRequestInterface
     {
         return $this->parsedBody;
     }
-    public function withParsedBody($data)
+
+    public function withParsedBody($data): ServerRequestInterface
     {
         $new = clone $this;
         $new->parsedBody = $data;
@@ -149,14 +151,14 @@ class ServerRequest extends Request implements ServerRequestInterface
         return $this->attributes[$name];
     }
 
-    public function withAttribute($name, $value): ServerRequest
+    public function withAttribute($name, $value): ServerRequestInterface
     {
         $new = clone $this;
         $new->attributes[$name] = $value;
         return $new;
     }
 
-    public function withoutAttribute($name): ServerRequest
+    public function withoutAttribute($name): ServerRequestInterface
     {
         $new = clone $this;
         if (array_key_exists($name, $new->attributes)) {

@@ -102,14 +102,14 @@ class Uri implements UriInterface
         return $this->fragment;
     }
 
-    public function withScheme($scheme): Uri
+    public function withScheme($scheme): UriInterface
     {
         $new = clone $this;
         $new->scheme = strtolower($scheme);
         return $new;
     }
 
-    public function withUserInfo($user, $password = null): Uri
+    public function withUserInfo($user, $password = null): UriInterface
     {
         $new = clone $this;
         $new->user = $user;
@@ -117,35 +117,35 @@ class Uri implements UriInterface
         return $new;
     }
 
-    public function withHost($host): Uri
+    public function withHost($host): UriInterface
     {
         $new = clone $this;
         $new->host = strtolower($host);
         return $new;
     }
 
-    public function withPort($port): Uri
+    public function withPort($port): UriInterface
     {
         $new = clone $this;
         $new->port = $port;
         return $new;
     }
 
-    public function withPath($path): Uri
+    public function withPath($path): UriInterface
     {
         $new = clone $this;
         $new->path = $path;
         return $new;
     }
 
-    public function withQuery($query): Uri
+    public function withQuery($query): UriInterface
     {
         $new = clone $this;
         $new->query = $query;
         return $new;
     }
 
-    public function withFragment($fragment): Uri
+    public function withFragment($fragment): UriInterface
     {
         $new = clone $this;
         $new->fragment = $fragment;
@@ -195,7 +195,7 @@ class Uri implements UriInterface
      *
      * @return Uri
      */
-    public static function getCurrent(): Uri
+    public static function getCurrent(): UriInterface
     {
         $url = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http';
         $url .= '://';

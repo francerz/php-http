@@ -23,12 +23,12 @@ abstract class AbstractMessage implements MessageInterface
         $this->http = new HttpHelper(HttpFactory::getManager());
     }
 
-    public function getProtocolVersion()
+    public function getProtocolVersion(): string
     {
         return $this->protocolVersion;
     }
 
-    public function withProtocolVersion($version)
+    public function withProtocolVersion(string $version): MessageInterface
     {
         $new = clone $this;
         $new->protocolVersion = $version;
@@ -66,7 +66,7 @@ abstract class AbstractMessage implements MessageInterface
         return join(', ', $header);
     }
 
-    public function withHeader($name, $value)
+    public function withHeader($name, $value): MessageInterface
     {
         if (!is_array($value)) {
             $value = [$value];
@@ -82,7 +82,7 @@ abstract class AbstractMessage implements MessageInterface
         return $new;
     }
 
-    public function withAddedHeader($name, $value)
+    public function withAddedHeader($name, $value): MessageInterface
     {
         $oldValues = $this->getHeader($name);
 
@@ -93,7 +93,7 @@ abstract class AbstractMessage implements MessageInterface
         return $this->withHeader($name, array_merge($oldValues, $value));
     }
 
-    public function withoutHeader($name)
+    public function withoutHeader($name): MessageInterface
     {
         $new = clone $this;
 
@@ -111,7 +111,7 @@ abstract class AbstractMessage implements MessageInterface
         return $this->body;
     }
 
-    public function withBody(StreamInterface $body)
+    public function withBody(StreamInterface $body): MessageInterface
     {
         $new = clone $this;
         $new->body = $body;

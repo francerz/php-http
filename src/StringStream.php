@@ -16,12 +16,12 @@ class StringStream implements StreamInterface
     }
 
     #region StreamInterface implementation
-    public function __toString()
+    public function __toString(): string
     {
         return $this->string;
     }
 
-    public function close()
+    public function close(): void
     {
     }
 
@@ -32,27 +32,27 @@ class StringStream implements StreamInterface
         return $string;
     }
 
-    public function getSize()
+    public function getSize(): int
     {
         return strlen($this->string);
     }
 
-    public function tell()
+    public function tell(): int
     {
         return $this->pointer;
     }
 
-    public function eof()
+    public function eof(): bool
     {
         return $this->pointer >= strlen($this->string);
     }
 
-    public function isSeekable()
+    public function isSeekable(): bool
     {
         return true;
     }
 
-    public function seek($offset, $whence = SEEK_SET)
+    public function seek($offset, $whence = SEEK_SET): void
     {
         switch ($whence) {
             case SEEK_SET:
@@ -67,17 +67,17 @@ class StringStream implements StreamInterface
         }
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         $this->seek(0);
     }
 
-    public function isWritable()
+    public function isWritable(): bool
     {
         return true;
     }
 
-    public function write($string)
+    public function write($string): int
     {
         $this->string = substr_replace(
             $this->string,
@@ -86,9 +86,10 @@ class StringStream implements StreamInterface
             strlen($string)
         );
         $this->pointer += strlen($string);
+        return strlen($string);
     }
 
-    public function isReadable()
+    public function isReadable(): bool
     {
         return true;
     }
@@ -103,7 +104,7 @@ class StringStream implements StreamInterface
         return $ret;
     }
 
-    public function getContents()
+    public function getContents(): string
     {
         $ret = substr($this->string, $this->pointer);
         $this->pointer = strlen($this->string);
