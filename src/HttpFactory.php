@@ -57,7 +57,7 @@ class HttpFactory implements
     public function createServerRequest(string $method, $uri, array $serverParams = []): ServerRequestInterface
     {
         if (is_string($uri)) {
-            $uri = new $this->createUri($uri);
+            $uri = $this->createUri($uri);
         }
         if (!$uri instanceof Uri) {
             throw new InvalidArgumentException('Invalid uri argument.');
