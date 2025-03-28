@@ -30,18 +30,13 @@ class Uri implements UriInterface
         if (!isset($this->host)) {
             return '';
         }
-
-        $authority = $this->getHost();
-        $userInfo = $this->getUserInfo();
-        if (!empty($userInfo)) {
-            $authority = $userInfo . '@' . $authority;
+        $authority = $this->host;
+        if (!empty($this->user)) {
+            $authority = $this->getUserInfo() . '@' . $authority;
         }
-
-        $port = $this->getPort();
-        if (!empty($port)) {
-            $authority .= ':' . $port;
+        if (isset($this->port)) {
+            $authority .= ':' . $this->port;
         }
-
         return $authority;
     }
 
@@ -154,39 +149,16 @@ class Uri implements UriInterface
 
     public function __toString(): string
     {
-        $uri = '';
-
-        $scheme = $this->getScheme();
-        if (!empty($scheme)) {
-            $uri .= $scheme . ':';
-        }
-
-        $authority = $this->getAuthority();
-        $path = $this->getPath();
-        if (!empty($authority)) {
-            $uri .= '//' . $authority;
-
-            // Adding "/" at start if path is rootless.
-            if (!empty($path) && strpos($path, '/') !== 0) {
-                $path = '/' . $path;
-            }
-            $uri .= $path;
-        } elseif (!empty($path)) {
-            // Collapses all starting "/" to one.
-            $uri .= '/' . ltrim($path, '/');
-        }
-
-        $query = $this->getQuery();
-        if (!empty($query)) {
-            $uri .= '?' . $query;
-        }
-
-        $fragment = $this->getFragment();
-        if (!empty($fragment)) {
-            $uri .= '#' . $fragment;
-        }
-
-        return $uri;
+        return UriHelper::buildStringFromParts([
+            'scheme' => $this->scheme,
+            'user' => $this->user,
+            'pass' => $this->password,
+            'host' => $this->host,
+            'port' => $this->port,
+            'path' => $this->path,
+            'query' => $this->query,
+            'fragment' => $this->fragment
+        ]);
     }
     #endregion
 
@@ -197,12 +169,7 @@ class Uri implements UriInterface
      */
     public static function getCurrent(): UriInterface
     {
-        $url = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http';
-        $url .= '://';
-        $url .= $_SERVER['HTTP_HOST'] ?? 'localhost';
-        $url .= $_SERVER['REQUEST_URI'] ?? '/index.php';
-        $url  = new static($url);
-        return $url;
+        return new static(UriHelper::getCurrentString());
     }
 
     public function __construct($uri = null)
@@ -216,17 +183,15 @@ class Uri implements UriInterface
 
     private function parse($url)
     {
-        $p = '`(?:(.*?):)?(?:/{2}(?:([^:@]*)(:[^@]*)?@)?([^:/?#]+)(?::(\\d+))?)?([^?#]*)?([^#]*)?(.*)`';
-        preg_match($p, $url, $m);
-
-        $this->scheme = $m[1];
-        $this->user = $m[2];
-        $this->password = substr($m[3], 1);
-        $this->host = $m[4];
-        $this->port = intval($m[5]);
-        $this->path = $m[6];
-        $this->query = substr($m[7], 1);
-        $this->fragment = substr($m[8], 1);
+        $uriParts = parse_url($url);
+        $this->scheme = $uriParts['scheme'] ?? null;
+        $this->user = $uriParts['user'] ?? '';
+        $this->password = $uriParts['pass'] ?? null;
+        $this->host = $uriParts['host'] ?? '';
+        $this->port = $uriParts['port'] ?? null;
+        $this->path = $uriParts['path'] ?? '/';
+        $this->query = $uriParts['query'] ?? '';
+        $this->fragment = $uriParts['fragment'] ?? '';
     }
 
     private function loadFromUriInterface(UriInterface $uri)
